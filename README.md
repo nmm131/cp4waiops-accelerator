@@ -256,7 +256,7 @@ brew install wget
 ### Run the installation script
 [Get your IBM Entitled Registry key](https://myibm.ibm.com/products-services/containerlibrary)
 
-Run the following command, replacing <IBM_Entitlement_Key> with the IBM Entitled Registry key that you obtained in the previous step:
+Run the following command, replacing `<IBM_Entitlement_Key>` with the IBM Entitled Registry key that you obtained in the previous step:
 ```
 ./10_install_aiops.sh -t <IBM_Entitlement_Key>
 ```

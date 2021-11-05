@@ -1,19 +1,18 @@
 # CP4WAIOPS Accelerator
 
-## Anchors
-[Installation dependencies](#installation-dependencies)
-
-[Reserve a ROKS cluster](#reserve-a-roks-cluster)
-- [Share access to the ROKS cluster](#share-access-to-the-roks-cluster)
-- [TechZone support](#techzone-support)
-
-[Clone this repository](#clone-this-repository)
-
-[Delete your cluster](#delete-your-cluster)
-
-[Limitations of this Project](#limitations-of-this-project)
-
-[Definitions](#definitions)
+## Table of Contents
+- [CP4WAIOPS Accelerator](#cp4waiops-accelerator)
+  - [Table of Contents](#table-of-contents)
+  - [Installation dependencies](#installation-dependencies)
+  - [Reserve a ROKS cluster](#reserve-a-roks-cluster)
+    - [Share access to the ROKS cluster](#share-access-to-the-roks-cluster)
+    - [Login to your cluster](#login-to-your-cluster)
+    - [If you see Ingress status is Unknown](#if-you-see-ingress-status-is-unknown)
+    - [TechZone support](#techzone-support)
+  - [Clone this repository](#clone-this-repository)
+  - [Delete your cluster](#delete-your-cluster)
+  - [Limitations of this Project](#limitations-of-this-project)
+  - [Definitions](#definitions)
 
 
 ## Installation dependencies
@@ -81,6 +80,56 @@ The cluster automatically become available to another user in IBM Cloud.
 Once shared it can not be revoked. Only by DTE Admins per owner request.
 
 Shared environment will remain visible in "My reservation" view to its owner only.
+
+### Login to your cluster
+You will get an e-mail from IBM Technology Zone verifying that your environment is ready
+
+Click on the `Cluster URL`
+
+![TechZone](./documentation/ibmcloud01.png)
+
+### If you see Ingress status is Unknown
+
+Log in to IBM Cloud CLI
+
+Click on your user profile
+
+Click on `Log in to CLI and API`
+
+![TechZone](./documentation/ibmcloud02.png)
+
+Copy the IBM Cloud CLI (e.g., `ibmcloud login -a https://cloud.ibm.com -u passcode -p <passcode_string>`)
+
+Run it in a terminal
+
+When prompted, select a region closest to your physical location
+
+Get your Cluster Name or ID with the following command, or through the `Cluster URL` found in your e-mail from IBM Technology Zone:
+```
+ibmcloud ks cluster ls
+```
+
+Copy the Name or ID value
+
+Run the following command, replacing `<cluster_name_or_ID>` with the value from the previous step
+```
+ibmcloud ks ingress status -c <cluster_name_or_ID>
+```
+
+Expected output:
+
+```
+OK
+                     
+Ingress Status:   healthy   
+Message:          All Ingress components are healthy   
+
+Component             Status    Type   
+certificate manager   healthy   secret   
+router-default        healthy   router  
+```
+
+If Ingress or Component Statuses are not `healthy` then contact ITZ support
 
 ### TechZone support
 For any questions, contact ITZ support.

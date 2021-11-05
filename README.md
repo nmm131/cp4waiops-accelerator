@@ -26,11 +26,11 @@
 
 Underneath `Environments` click on `IBM RedHat Openshift Kubernetes Service (ROKS)`
 
-![TechZone](./documentation/techzone01.png)
+![IBM Technology Zone](./documentation/techzone01.png)
 
 Click `Reserve Now` to create your cluster. The cluster will take some time to provision and it will be available for up to seven days (168 hours).
 
-![TechZone](./documentation/techzone02.png)
+![IBM Technology Zone](./documentation/techzone02.png)
 
 Fill out your reservation with the following details:
 1. Name: CP4WAIOPS Accelerator
@@ -59,20 +59,20 @@ Fill out your reservation with the following details:
 
 Click `Submit`
 
-![TechZone](./documentation/techzone03.png)
+![IBM Technology Zone](./documentation/techzone03.png)
 
 Wait for your cluster to be provisioned. This can take anywhere from 15 minutes to about an hour.
 
 The status of the reservation will turn green for `Scheduled` or `Provisioning`
 
-![TechZone](./documentation/techzone04.png)
+![IBM Technology Zone](./documentation/techzone04.png)
 
 Then the status of the reservation will turn black for `Ready`
 
-![TechZone](./documentation/techzone05.png)
+![IBM Technology Zone](./documentation/techzone05.png)
 
 ### Share access to the ROKS cluster
-[Login to TechZone](https://techzone.ibm.com/my/reservations)
+[IBM Technology Zone](https://techzone.ibm.com/my/reservations)
 
 Find the reservation that needs to be shared
 
@@ -80,13 +80,13 @@ Click on the three vertical dots menu
 
 Select `Share`
 
-![TechZone](./documentation/techzone06.png)
+![IBM Technology Zone](./documentation/techzone06.png)
 
 Enter the IBMid to share with
 
 Click on `Share` blue button
 
-![TechZone](./documentation/techzone07.png)
+![IBM Technology Zone](./documentation/techzone07.png)
 
 The cluster automatically become available to another user in IBM Cloud.
 
@@ -99,7 +99,7 @@ You will get an e-mail from IBM Technology Zone verifying that your environment 
 
 Click on the `Cluster URL`
 
-![TechZone](./documentation/ibmcloud01.png)
+![IBM Cloud](./documentation/ibmcloud01.png)
 
 #### If you see Ingress status is Unknown
 
@@ -109,7 +109,7 @@ Click on your user profile
 
 Click on `Log in to CLI and API`
 
-![TechZone](./documentation/ibmcloud02.png)
+![IBM Cloud](./documentation/ibmcloud02.png)
 
 Copy the IBM Cloud CLI (e.g., `ibmcloud login -a https://cloud.ibm.com -u passcode -p <passcode_string>`)
 
@@ -146,19 +146,19 @@ If Ingress or Component Statuses are not `healthy` then contact ITZ support or l
 
 #### Login to OpenShift web console
 Click on `OpenShift web console`
-![TechZone](./documentation/ibmcloud03.png)
+![IBM Cloud](./documentation/ibmcloud03.png)
 
-![TechZone](./documentation/ibmcloud04.png)
+![OpenShift Web Console](./documentation/openshift-web-console01.png)
 
 Click on your IBM ID in the top-right hand corner
 
 Then click on `Copy login command`
 
-![TechZone](./documentation/ibmcloud05.png)
+![OpenShift Web Console](./documentation/openshift-web-console02.png)
 
 Click on `Display Token`
 
-![TechZone](./documentation/ibmcloud06.png)
+![OpenShift Web Console](./documentation/openshift-web-console03.png)
 
 Copy the command and run it from a terminal. e.g.:
 ```

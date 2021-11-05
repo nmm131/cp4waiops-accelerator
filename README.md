@@ -129,7 +129,7 @@ certificate manager   healthy   secret
 router-default        healthy   router  
 ```
 
-If Ingress or Component Statuses are not `healthy` then contact ITZ support
+If Ingress or Component Statuses are not `healthy` then contact ITZ support or look at [IBM's Containers Ingress Status documentation](https://cloud.ibm.com/docs/containers?topic=containers-ingress-status) for clues to solve the issue.
 
 ### TechZone support
 For any questions, contact ITZ support.

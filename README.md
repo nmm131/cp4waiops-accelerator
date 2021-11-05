@@ -7,7 +7,8 @@
   - [Reserve a ROKS cluster](#reserve-a-roks-cluster)
     - [Share access to the ROKS cluster](#share-access-to-the-roks-cluster)
     - [Login to your cluster](#login-to-your-cluster)
-    - [If you see Ingress status is Unknown](#if-you-see-ingress-status-is-unknown)
+      - [If you see Ingress status is Unknown](#if-you-see-ingress-status-is-unknown)
+      - [Login to OpenShift web console](#login-to-openshift-web-console)
     - [TechZone support](#techzone-support)
   - [Clone this repository](#clone-this-repository)
   - [Delete your cluster](#delete-your-cluster)
@@ -100,7 +101,7 @@ Click on the `Cluster URL`
 
 ![TechZone](./documentation/ibmcloud01.png)
 
-### If you see Ingress status is Unknown
+#### If you see Ingress status is Unknown
 
 Log in to IBM Cloud CLI
 
@@ -112,7 +113,7 @@ Click on `Log in to CLI and API`
 
 Copy the IBM Cloud CLI (e.g., `ibmcloud login -a https://cloud.ibm.com -u passcode -p <passcode_string>`)
 
-Run it in a terminal
+Run it from a terminal
 
 When prompted, select a region closest to your physical location
 
@@ -142,6 +143,28 @@ router-default        healthy   router
 ```
 
 If Ingress or Component Statuses are not `healthy` then contact ITZ support or look at [IBM's Containers Ingress Status documentation](https://cloud.ibm.com/docs/containers?topic=containers-ingress-status) for clues to solve the issue.
+
+#### Login to OpenShift web console
+Click on `OpenShift web console`
+![TechZone](./documentation/ibmcloud03.png)
+
+![TechZone](./documentation/ibmcloud04.png)
+
+Click on your IBM ID in the top-right hand corner
+
+Then click on `Copy login command`
+
+![TechZone](./documentation/ibmcloud05.png)
+
+Click on `Display Token`
+
+![TechZone](./documentation/ibmcloud06.png)
+
+Copy the command and run it from a terminal. e.g.:
+```
+oc login --token=<token_code> --server=<server_url:port>
+
+```
 
 ### TechZone support
 For any questions, contact ITZ support.

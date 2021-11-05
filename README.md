@@ -11,6 +11,13 @@
       - [Login to OpenShift web console](#login-to-openshift-web-console)
     - [TechZone support](#techzone-support)
   - [Clone this repository](#clone-this-repository)
+    - [Create a GitHub Token](#create-a-github-token)
+    - [Clone this repository](#clone-this-repository-1)
+  - [CP4WAIOPS 3.1.1 Installation and Demo Environment Steps](#cp4waiops-311-installation-and-demo-environment-steps)
+    - [Clone the repository](#clone-the-repository)
+    - [Configure a global pull-secret](#configure-a-global-pull-secret)
+    - [Install prerequisites](#install-prerequisites)
+    - [Run the installation script](#run-the-installation-script)
   - [Delete your cluster](#delete-your-cluster)
   - [Limitations of this Project](#limitations-of-this-project)
   - [Definitions](#definitions)
@@ -174,11 +181,102 @@ Business Partners - Contact ITZ Support - `techzone.help@ibm.com`
 IBMers - Make a post on the `#itz-techzone-support` slack channel.
 
 ## Clone this repository
+### Create a GitHub Token
+Verify your email address, if it hasn't been verified yet.
+
+In the upper-right corner of any page, click your profile photo, then click Settings.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token01.png)
+
+In the left sidebar, click Developer settings.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token02.png)
+
+In the left sidebar, click Personal access tokens.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token03.png)
+
+Click Generate new token.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token04.png)
+
+Give your token a descriptive name.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token05.png)
+
+To give your token an expiration, select the Expiration drop-down menu, then click a default or use the calendar picker.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token06.png)
+
+Select the scopes, or permissions, you'd like to grant this token. To use your token to access repositories from the command line, select repo.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token07.gif)
+
+Click Generate token.
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token08.png)
+
+![GitHub Personal Access Token](./documentation/github-personal-access-token09.png)
+
+### Clone this repository
 Run the following command from the directory you want the repository to exist in:
 
 ```
 git clone git@github.ibm.com:CP4WAIOPS-Accelerator/CP4WAIOPS.git
 ```
+
+## CP4WAIOPS 3.1.1 Installation and Demo Environment Steps
+
+### Clone the repository
+```
+git clone git@github.ibm.com:NIKH/aiops-3.1.git
+```
+
+### Configure a global pull-secret
+Run the following command:
+```
+oc get secret -n openshift-config pull-secret -oyaml > pull-secret_backup.yaml
+```
+In OpenShift web console, go to Secrets in Namespace openshift-config
+
+Open the pull-secretSecret
+
+Select Actions/Edit Secret
+
+Scroll down and click Add Credentials
+
+Enter your Docker credentials
+
+### Install prerequisites
+```
+brew install wget
+./13_install_prerequisites_mac.sh
+```
+
+### Run the installation script
+[Get your IBM Entitled Registry key](https://myibm.ibm.com/products-services/containerlibrary)
+
+Run the following command, replacing <IBM_Entitlement_Key> with the IBM Entitled Registry key that you obtained in the previous step:
+```
+./10_install_aiops.sh -t <IBM_Entitlement_Key>
+```
+
+This will install the following operators:
+
+- Knative
+- Strimzi
+- CP4WAIOPS
+- OpenLDAP
+- Demo Apps
+- Register LDAP Users
+- Gateway
+- Housekeeping
+- Additional Routes (Topology, Flink, Strimzi)
+- Create OCP User (serviceaccount demo-admin)
+- Patch Ingress
+- Adapt NGINX Certificates
+- Adapt Slack Welcome message to /welcome
+
 
 ## Delete your cluster
 [Delete your classic ROKS cluster](https://techzone.ibm.com/my/reservations)

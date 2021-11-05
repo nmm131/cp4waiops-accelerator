@@ -44,6 +44,18 @@ Fill out your reservation with the following details:
 8. NFS Size: 2 TB
 9. OpenShift Version: 4.7
 
+| Key                  |                                                                                                        Value |
+| :------------------- | -----------------------------------------------------------------------------------------------------------: |
+| Name:                |                                                                                        CP4WAIOPS Accelerator |
+| Purpose:             |                                                                                    Practice / Self-Education |
+| Purpose Description: |                                                                Install and demo CP4WAIOPS on a ROKS cluster. |
+| End Date and Time:   |     Select a date that falls seven days from today's date. Select a time that falls before your current time |
+| Preferred Geography: | Choose a location with the lowest Disk Usage, then location closest to you (e.g., Dallas 10 Disk Usage: 25%) |
+| Worker Node Count:   |                                                                                                            5 |
+| Worker Node Flavor:  |                                                                                               16 CPU x 64 GB |
+| NFS Size:            |                                                                                                         2 TB |
+| OpenShift Version:   |                                                                                                          4.7 |
+
 Click `Submit`
 
 ![TechZone](./documentation/techzone03.png)

@@ -1,11 +1,27 @@
 # CP4WAIOPS Accelerator
 
+## Anchors
+[Installation dependencies](#installation-dependencies)
+
+[Reserve a ROKS cluster](#reserve-a-roks-cluster)
+- [Share access to the ROKS cluster](#share-access-to-the-roks-cluster)
+- [TechZone support](#techzone-support)
+
+[Clone this repository](#clone-this-repository)
+
+[Delete your cluster](#delete-your-cluster)
+
+[Limitations of this Project](#limitations-of-this-project)
+
+[Definitions](#definitions)
+
+
 ## Installation dependencies
 1. sh
 2. OpenShift CLI
 3. Red Hat OpenShift Container Platform
 
-## Reserve a classic IBM RedHat Openshift Kubernetes Service (ROKS) cluster
+## Reserve a ROKS cluster
 [Reserve a classic ROKS cluster](https://techzone.ibm.com/collection/custom-roks-vmware-requests)
 
 Underneath `Environments` click on `IBM RedHat Openshift Kubernetes Service (ROKS)`
@@ -34,8 +50,29 @@ Click `Submit`
 ![TechZone](./documentation/techzone03.png)
 
 Wait for your cluster to be provisioned. This can take anywhere from 15 minutes to about an hour.
-
+The status of the reservation will turn green for `Scheduled` or `Provisioning`
 ![TechZone](./documentation/techzone04.png)
+Then the status of the reservation will turn black for `Ready`
+![TechZone](./documentation/techzone05.png)
+
+### Share access to the ROKS cluster
+[Login to TechZone](https://techzone.ibm.com/my/reservations)
+Find the reservation that needs to be shared
+Click on the three vertical dots menu
+Select `Share`
+![TechZone](./documentation/techzone06.png)
+Enter the IBMid to share with
+Click on `Share` blue button
+![TechZone](./documentation/techzone07.png)
+
+The cluster automatically become available to another user in IBM Cloud
+Once shared it can not be revoked. Only by DTE Admins per owner request.
+Shared environment will remain visible in "My reservation" view to its owner only.
+
+### TechZone support
+For any questions, contact ITZ support.
+Business Partners - Contact ITZ Support - `techzone.help@ibm.com`
+IBMers - Make a post on the `#itz-techzone-support` slack channel.
 
 ## Clone this repository
 Run the following command from the directory you want the repository to exist in:
@@ -52,3 +89,6 @@ Click `Delete`
 Your cluster will automatically be deleted from IBM Cloud
 
 ## Limitations of this Project
+
+## Definitions
+IBM RedHat Openshift Kubernetes Service (ROKS)

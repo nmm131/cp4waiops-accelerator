@@ -50,32 +50,48 @@ Click `Submit`
 ![TechZone](./documentation/techzone03.png)
 
 Wait for your cluster to be provisioned. This can take anywhere from 15 minutes to about an hour.
+
 The status of the reservation will turn green for `Scheduled` or `Provisioning`
+
 ![TechZone](./documentation/techzone04.png)
+
 Then the status of the reservation will turn black for `Ready`
+
 ![TechZone](./documentation/techzone05.png)
 
 ### Share access to the ROKS cluster
 [Login to TechZone](https://techzone.ibm.com/my/reservations)
+
 Find the reservation that needs to be shared
+
 Click on the three vertical dots menu
+
 Select `Share`
+
 ![TechZone](./documentation/techzone06.png)
+
 Enter the IBMid to share with
+
 Click on `Share` blue button
+
 ![TechZone](./documentation/techzone07.png)
 
-The cluster automatically become available to another user in IBM Cloud
+The cluster automatically become available to another user in IBM Cloud.
+
 Once shared it can not be revoked. Only by DTE Admins per owner request.
+
 Shared environment will remain visible in "My reservation" view to its owner only.
 
 ### TechZone support
 For any questions, contact ITZ support.
+
 Business Partners - Contact ITZ Support - `techzone.help@ibm.com`
+
 IBMers - Make a post on the `#itz-techzone-support` slack channel.
 
 ## Clone this repository
 Run the following command from the directory you want the repository to exist in:
+
 ```
 git clone git@github.ibm.com:CP4WAIOPS-Accelerator/CP4WAIOPS.git
 ```
@@ -84,6 +100,7 @@ git clone git@github.ibm.com:CP4WAIOPS-Accelerator/CP4WAIOPS.git
 [Delete your classic ROKS cluster](https://techzone.ibm.com/my/reservations)
 
 Click the three dots icon in the top-right corner of your reservation
+
 Click `Delete`
 
 Your cluster will automatically be deleted from IBM Cloud

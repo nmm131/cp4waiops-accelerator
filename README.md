@@ -265,7 +265,6 @@ Click Generate token.
 Run the following command from the directory you want the repository to exist in:
 
 ```
-git clone git@github.ibm.com:CP4WAIOPS-Accelerator/CP4WAIOPS.git
 git clone git@github.ibm.com:NIKH/aiops-3.1.git
 ```
 

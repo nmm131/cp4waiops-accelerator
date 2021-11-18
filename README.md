@@ -12,7 +12,7 @@
     - [TechZone support](#techzone-support)
   - [Install Cloud Pak for Watson AIOps and Demo App](#install-cloud-pak-for-watson-aiops-and-demo-app)
     - [Create a GitHub Token](#create-a-github-token)
-    - [Clone this repository](#clone-this-repository)
+    - [Clone the CP4WAIOPS Demo repository](#clone-the-cp4waiops-demo-repository)
     - [Configure a global pull-secret](#configure-a-global-pull-secret)
     - [Install prerequisites](#install-prerequisites)
     - [Run the installation script](#run-the-installation-script)
@@ -261,11 +261,12 @@ Click Generate token.
 
 ![GitHub Personal Access Token](./documentation/github-personal-access-token09.png)
 
-### Clone this repository
+### Clone the CP4WAIOPS Demo repository
 Run the following command from the directory you want the repository to exist in:
 
 ```
 git clone git@github.ibm.com:CP4WAIOPS-Accelerator/CP4WAIOPS.git
+git clone git@github.ibm.com:NIKH/aiops-3.1.git
 ```
 
 ### Configure a global pull-secret

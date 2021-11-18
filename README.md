@@ -34,29 +34,29 @@
     - [Train Log Anomaly - RobotShop](#train-log-anomaly---robotshop)
       - [Create Kafka Training Integration](#create-kafka-training-integration)
       - [Load Training Data into Kafka (Option 1: faster)](#load-training-data-into-kafka-option-1-faster)
-      - [6.1.3 Create Training Definition](#613-create-training-definition)
+      - [Create Training Definition](#create-training-definition)
       - [Train the model](#train-the-model)
       - [Enable Log Anomaly detection](#enable-log-anomaly-detection)
     - [Train Event Grouping](#train-event-grouping)
       - [Create Integration](#create-integration)
       - [Load Kafka Training Data](#load-kafka-training-data)
-      - [6.2.3 Create Training Definition](#623-create-training-definition)
-      - [6.2.4 Train the model](#624-train-the-model)
-      - [6.2.5 Enable Event Grouping](#625-enable-event-grouping)
+      - [Create Training Definition](#create-training-definition-1)
+      - [Train the model](#train-the-model-1)
+      - [Enable Event Grouping](#enable-event-grouping)
     - [Train Incident Similarity](#train-incident-similarity)
       - [Load Training Data directly into ElasticSearch](#load-training-data-directly-into-elasticsearch)
-      - [Create Training Definition](#create-training-definition)
-      - [Train the model](#train-the-model-1)
-  - [7. Configure Runbooks](#7-configure-runbooks)
-    - [7.1 Create Bastion Server](#71-create-bastion-server)
+      - [Create Training Definition](#create-training-definition-2)
+      - [Train the model](#train-the-model-2)
+  - [Configure Runbooks](#configure-runbooks)
+    - [Create Bastion Server](#create-bastion-server)
     - [Create the NOI Integration](#create-the-noi-integration)
       - [In NOI](#in-noi)
-      - [7.2.2 Adapt SSL Certificate in Bastion Host Deployment.](#722-adapt-ssl-certificate-in-bastion-host-deployment)
-    - [7.3 Create Automation](#73-create-automation)
+      - [Adapt SSL Certificate in Bastion Host Deployment.](#adapt-ssl-certificate-in-bastion-host-deployment)
+    - [Create Automation](#create-automation)
       - [Connect to Cluster](#connect-to-cluster)
-      - [7.3.2 RobotShop Mitigate MySql](#732-robotshop-mitigate-mysql)
-    - [7.4 Create Runbooks](#74-create-runbooks)
-    - [7.5 Add Runbook Triggers](#75-add-runbook-triggers)
+      - [RobotShop Mitigate MySql](#robotshop-mitigate-mysql)
+    - [Create Runbooks](#create-runbooks)
+    - [Add Runbook Triggers](#add-runbook-triggers)
   - [Slack integration](#slack-integration)
     - [Initial Slack Setup](#initial-slack-setup)
   - [Delete your cluster](#delete-your-cluster)
@@ -501,7 +501,7 @@ Run the following command from the project's root folder:
 	```
 	This takes some time (20-60 minutes depending on your Internet speed).
 
-#### 6.1.3 Create Training Definition
+#### Create Training Definition
 
 - In the IBM Automation Dashboard select `Operate`/`AI model management`
 - Select `Log anomaly detection`
@@ -549,7 +549,7 @@ First we have to create some Events to train on.
 	./training/robotshop-train-events.sh
 	```
 
-#### 6.2.3 Create Training Definition
+#### Create Training Definition
 
 - In the IBM Automation Dashboard select `Operate`/`AI model management`
 - Select `Event grouping service`
@@ -562,13 +562,13 @@ First we have to create some Events to train on.
 - Click `Create`
 
 
-#### 6.2.4 Train the model
+#### Train the model
 
 - In the training definition click on `Actions` / `Start Training`
 - After successful training you should get "Needs improvement."
 - In the training definition click on `Actions` / `Deploy`
 
-#### 6.2.5 Enable Event Grouping
+#### Enable Event Grouping
 
 - In the CP4WAIOPS "Hamburger" Menu select `Operate`/`Data and tool integrations`
 - Under `Kafka`, click on `1 integration`
@@ -632,8 +632,8 @@ yellow open incidenttrain                        X6FAhONnRrGzHy9qOVIk8Q 1 1    1
 - After successful training
 - In the training definition click on `Actions` / `Deploy`
 
-## 7. Configure Runbooks
-### 7.1 Create Bastion Server
+## Configure Runbooks
+### Create Bastion Server
 
 This creates a simple Pod with the needed tools (oc, kubectl) being used as a bastion host for Runbook Automation. 
 
@@ -648,12 +648,12 @@ oc apply -n default -f ./tools/6_bastion/create-bastion.yaml
 - Go to  `Administration` / `Integration with other Systems` / `Automation Type` / `Script`
 - Copy the SSH KEY
 
-#### 7.2.2 Adapt SSL Certificate in Bastion Host Deployment. 
+#### Adapt SSL Certificate in Bastion Host Deployment. 
 
 - Select the `bastion-host` Deployment in Namespace `default`
 - Adapt Environment Variable SSH_KEY with the key you have copied above.
 
-### 7.3 Create Automation
+### Create Automation
 #### Connect to Cluster
 `Automation` / `Runbooks` / `Automations` / `New Automation`
 
@@ -671,8 +671,7 @@ $token	 : Token from your login (from 80_get_logins.sh)
 $ocp_url : URL from your login (from 80_get_logins.sh, something like https://c102-e.eu-de.containers.cloud.ibm.com:32236)		
 ```
 
-
-#### 7.3.2 RobotShop Mitigate MySql
+#### RobotShop Mitigate MySql
 `Automation` / `Runbooks` / `Automations` / `New Automation`
 
 ```bash
@@ -688,7 +687,7 @@ user:   root
 ```
 
 
-### 7.4 Create Runbooks
+### Create Runbooks
 
 - `Library` / `New Runbook`
 - Name it `Mitigate RobotShop Problem`
@@ -699,7 +698,7 @@ user:   root
 - Select `Use default value` for all parameters
 - Click `Publish`
 
-### 7.5 Add Runbook Triggers
+### Add Runbook Triggers
 
 - `Triggers` / `New Trigger`
 - Name and Description: `Mitigate RobotShop Problem`
@@ -753,4 +752,4 @@ Create a demo app
 Containerize the solution
 
 ## Resources
-[Find the documentation that was followed to install and configure a CP4WAIOPS Demo Environment here.](https://github.ibm.com/NIKH/aiops-3.1)
+[Find the original documentation to install and configure a CP4WAIOPS Demo Environment here.](https://github.ibm.com/NIKH/aiops-3.1)

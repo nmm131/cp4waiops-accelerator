@@ -1,5 +1,0 @@
-ansible
-node
-wget
-jq
-curl2

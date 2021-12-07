@@ -1,5 +1,4 @@
-FROM redhat/ubi8
+FROM python
 WORKDIR /code
-COPY requirements.sh requirements.sh
-#RUN ./requirements.sh
-#CMD ["run"]
+COPY requirements.sh ./
+RUN ./requirements.sh

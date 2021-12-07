@@ -1,7 +1,11 @@
 # CP4WAIOPS Accelerator
 
+# Notes
+We are using a python base image, but are not installing node
+
 ## Table of Contents
 - [CP4WAIOPS Accelerator](#cp4waiops-accelerator)
+- [Notes](#notes)
   - [Table of Contents](#table-of-contents)
   - [Installation dependencies](#installation-dependencies)
   - [Reserve a ROKS cluster](#reserve-a-roks-cluster)

@@ -24,9 +24,9 @@
 # OCP LOGIN PARAMETERS
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-OCP_LOGIN: false
-OCP_URL: not_configured
-OCP_TOKEN: not_configured
+OCP_LOGIN: true
+OCP_URL: "{{ lookup('env', 'OCP_LOGIN_URL') }}"
+OCP_TOKEN: "{{ lookup('env', 'OCP_LOGIN_TOKEN') }}"
 
 #Version of your OCP Cluster (override by setting manually - 4.6, 4.7,...)
 OCP_MAJOR_VERSION: automatic

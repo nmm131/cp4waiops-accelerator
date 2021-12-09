@@ -2,6 +2,7 @@
 
 # Notes
 We are using a python base image, but are not installing node
+We are using .env and --env-file during docker run command to pass in the IBM Entitlement Key, as well as use OCP Login Credentials in ansible playbook yaml files
 
 ## Table of Contents
 - [CP4WAIOPS Accelerator](#cp4waiops-accelerator)

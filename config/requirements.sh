@@ -10,6 +10,8 @@ apt-get install -y kafkacat
 apt install -y software-properties-common
 add-apt-repository --yes --update ppa:ansible/ansible
 apt install -y ansible
+pip3 install ansible
+pip3 install kubernetes
 
 # Install npm
 apt-get install -y npm

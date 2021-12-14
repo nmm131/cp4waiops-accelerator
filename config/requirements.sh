@@ -7,9 +7,9 @@ apt-get install -y kafkacat
 
 # Install Ansible
 # apt-get install -y npm
-apt install -y software-properties-common
-add-apt-repository --yes --update ppa:ansible/ansible
-apt install -y ansible
+# apt install -y software-properties-common
+# add-apt-repository --yes --update ppa:ansible/ansible
+# apt install -y ansible
 pip3 install ansible
 pip3 install kubernetes
 
@@ -36,7 +36,7 @@ tar xzfv cloudctl-linux-amd64.tar.gz
 mv -f cloudctl-linux-amd64 /usr/local/bin/cloudctl
 rm -f cloudctl-linux-amd64.tar.gz
 
-#Install helm
+# Install helm
 wget -L https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz -O helm.tar.gz
 tar xfvz helm.tar.gz
 mv linux-amd64/helm /usr/local/bin/helm
@@ -51,7 +51,7 @@ mv -f kubectl /usr/local/bin
 rm -f oc.tar.gz
 rm -f README.md
 
-#install k9's
+# install k9's
 # wget https://github.com/derailed/k9s/releases/download/v0.24.15/k9s_Linux_x86_64.tar.gz
 # tar xfzv k9s_Linux_x86_64.tar.gz
 # mv k9s /usr/local/bin

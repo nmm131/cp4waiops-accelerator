@@ -66,10 +66,18 @@ echo "  "
 while getopts "t:v:p:l:c:" opt
 do
     case "$opt" in
-        t ) INPUT_TOKEN="$OPTARG" ;;
+        # t ) INPUT_TOKEN="$OPTARG" ;;
         v ) VERBOSE="$OPTARG" ;;
     esac
 done
+
+printf "Please input an IBM Entitlement Key: [input not hidden] "
+read -r INPUT_TOKEN
+
+# case "$INPUT_TOKEN" in
+#     [0-9][0-9][0-9] ) ;;
+# esac
+
 
 
 

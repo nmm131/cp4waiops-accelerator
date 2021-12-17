@@ -74,6 +74,15 @@ done
 printf "Please input an IBM Entitlement Key: [input not hidden] "
 read -r INPUT_TOKEN
 
+printf "Please input an OCP URL: "
+read -r OCP_URL
+
+printf "Please input an OCP Token: [input not hidden] "
+read -r OCP_TOKEN
+
+export OCP_URL
+export OCP_TOKEN
+
 # case "$INPUT_TOKEN" in
 #     [0-9][0-9][0-9] ) ;;
 # esac

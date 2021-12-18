@@ -22,7 +22,7 @@ apt-get install -y npm
 # Install Elasticdump
 npm install elasticdump -g
 
-# Install jq"
+# Install jq
 apt-get install -y jq
 
 # Install cloudctl
@@ -43,7 +43,7 @@ mv linux-amd64/helm /usr/local/bin/helm
 rm -r linux-amd64/
 rm helm.tar.gz
 
-# Install OpenShift Client"
+# Install OpenShift Client
 wget https://github.com/openshift/okd/releases/download/4.7.0-0.okd-2021-07-03-190901/openshift-client-linux-4.7.0-0.okd-2021-07-03-190901.tar.gz -O oc.tar.gz
 tar xfzv oc.tar.gz
 mv -f oc /usr/local/bin

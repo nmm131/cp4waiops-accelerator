@@ -80,8 +80,16 @@ read -r OCP_URL
 printf "Please input an OCP Token: [input not hidden] "
 read -r OCP_TOKEN
 
+printf "Please input a File Storage Class: "
+read -r STORAGECLASS_FILE_OVERRIDE
+
+printf "Please input a Block Storage Class: "
+read -r STORAGECLASS_BLOCK_OVERRIDE
+
 export OCP_URL
 export OCP_TOKEN
+export STORAGECLASS_FILE_OVERRIDE
+export STORAGECLASS_BLOCK_OVERRIDE
 
 # case "$INPUT_TOKEN" in
 #     [0-9][0-9][0-9] ) ;;

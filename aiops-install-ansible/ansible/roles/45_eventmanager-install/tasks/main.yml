@@ -142,7 +142,7 @@
 - name: EVENTMANAGER -       🚀 Install EventManager
   community.kubernetes.k8s:
     state: present
-    template: ./templates/eventmanager/eventmanager-install-template.j2
+    template: ./templates/eventmanager/4_eventmanager-install-template.j2
 
 
 

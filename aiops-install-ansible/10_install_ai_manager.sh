@@ -143,3 +143,4 @@ cd ansible
 ansible-playbook -e ENTITLED_REGISTRY_KEY=$ENTITLED_REGISTRY_KEY 10_install-cp4waiops_ai_manager.yaml $VERBOSE
 cd -
 
+./11_install_event_manager.sh -t $OCP_TOKEN

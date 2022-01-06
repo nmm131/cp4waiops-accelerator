@@ -4,6 +4,13 @@
 We are using a python base image, but are not installing node
 We are using .env and --env-file during docker run command to pass in the IBM Entitlement Key, as well as use OCP Login Credentials in ansible playbook yaml files
 
+Ensure ibmc-file-gold-gid is the default storageclass. If it is not, remove the following annotation from the default storage class and add the annotation to the ibmc-file-gold-gid storageclass:
+```
+storageclass.kubernetes.io/is-default-class
+```
+
+Set its value to `true`.
+
 # Edit .env variables
 TODO:
 

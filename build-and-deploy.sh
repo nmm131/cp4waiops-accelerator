@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # Build the container
-docker build -t cp4waiops-accelerator:latest -f ./config/Dockerfile .
+docker build -t cp4waiops-accelerator:latest --label cp4waiops-accelerator-original -f ./config/Dockerfile .
+docker image prune --force --filter='label=cp4waiops-accelerator-original'
 
 # Remove the container
 docker stop cp4waiops-accelerator

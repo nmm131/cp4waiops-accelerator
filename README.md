@@ -1,5 +1,10 @@
 # CP4WAIOPS Accelerator
 
+## When testing scripts locally
+Run NIKH script's from the `./aiops-install-ansible` folder
+## When testing scripts remotely
+Run any script from the `/code` folder
+
 # Notes
 We are using a python base image, but are not installing node
 We are using .env and --env-file during docker run command to pass in the IBM Entitlement Key, as well as use OCP Login Credentials in ansible playbook yaml files
@@ -11,6 +16,8 @@ storageclass.kubernetes.io/is-default-class
 
 Set its value to `true`.
 
+Main branch is protected.
+
 # Edit .env variables
 TODO:
 
@@ -19,6 +26,8 @@ TODO:
 
 ## Table of Contents
 - [CP4WAIOPS Accelerator](#cp4waiops-accelerator)
+  - [When testing scripts locally](#when-testing-scripts-locally)
+  - [When testing scripts remotely](#when-testing-scripts-remotely)
 - [Notes](#notes)
 - [Edit .env variables](#edit-env-variables)
 - [Run the container](#run-the-container)

@@ -66,6 +66,14 @@
 #     var: K8S_EXISTS.resources
 #     verbosity: 1
 
+- name: Get Entitlement Key
+  shell: oc get secret -n cp4waiops-accelerator ibm-entitlement-key -o yaml | grep '.dockerconfigjson:' | head -1 | cut -d ':' -f2 | cut -d ' ' -f2 | base64 --decode | cut -d ':' -f5 | cut -d ',' -f1 | cut -d '"' -f2
+  register: ENTITLED_REGISTRY_KEY_OUTPUT
+
+- name: Set Entitlement Key
+  set_fact:
+    ENTITLED_REGISTRY_KEY: "{{ ENTITLED_REGISTRY_KEY_OUTPUT.stdout }}"
+
 
 # Create IBM Entitlements Pull Secret
 - name: PREREQUISITES -      🚀 Create Pull Secret
@@ -80,6 +88,8 @@
     oc patch -n openshift-marketplace serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
   ignore_errors: yes
   when: K8S_EXISTS.resources|length == 0
+
+  
 
 
 

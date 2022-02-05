@@ -89,7 +89,26 @@
   ignore_errors: yes
   when: K8S_EXISTS.resources|length == 0
 
-  
+# - name: PREREQUISITES -      🚀 Patch AIOPS Topology Cassandra Auth Secret Generator Pull Secret
+#   shell: |
+#     oc patch -n {{ WAIOPS_NAMESPACE }} serviceaccount aiops-topology-service-account -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+#     oc delete pods $(oc get pods -n {{ WAIOPS_NAMESPACE }} --selector=job-name=aiops-topology-cassandra-auth-secret-generator --no-headers -o custom-columns=":metadata.name") -n {{ WAIOPS_NAMESPACE }}
+#   ignore_errors: yes
+#   when: K8S_EXISTS.resources|length == 0
+
+- name: PREREQUISITES -      🚀 Patch AIOPS Topology Cassandra Auth Secret Generator Pull Secret
+  shell: |
+    oc apply -n {{ WAIOPS_NAMESPACE }} -f ./roles/04_aiops-prerequisites/files/cassandra-secret-patch.yaml
+    oc delete pods $(oc get pods -n {{ WAIOPS_NAMESPACE }} --selector=job-name=aiops-topology-cassandra-auth-secret-generator --no-headers -o custom-columns=":metadata.name") -n {{ WAIOPS_NAMESPACE }}
+  ignore_errors: yes
+  when: K8S_EXISTS.resources|length == 0
+
+- name: Patch AIOpsAnalyticsOrchestrator aiops
+  shell: |
+    oc get -n {{ WAIOPS_NAMESPACE }} AIOpsAnalyticsOrchestrator aiops -o yaml > ./roles/04_aiops-prerequisites/files/aiops-patch-template.yaml
+    yq w aiops-patch-template.yaml "spec.pullSecrets[+]" "ibm-aiops-pull-secret" > ./roles/04_aiops-prerequisites/files/aiops-patch.yaml
+    oc apply -f aiops-patch.yaml
+    oc delete -n {{ WAIOPS_NAMESPACE }} pods $(oc get pods -n cp4waiops --no-headers -o custom-columns=":metadata.name" | grep "aiops-ir-analytics")
 
 
 

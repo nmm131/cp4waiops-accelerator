@@ -47,8 +47,8 @@
     - "** Installation Options ***********************************************************************"
     - " Rook-Ceph installation method:    {{ROOK_CEPH_INSTALL_MODE}}"
     - " Auto Login for OCP:               {{OCP_LOGIN}}"
-    - "    OCP Url:                        {{OCP_URL}}"
-    - "    OCP Token:                      {{OCP_TOKEN}}"
+    # - "    OCP Url:                        {{OCP_URL}}"
+    # - "    OCP Token:                      {{OCP_TOKEN}}"
     - " OCP Major Version:                {{OCP_MAJOR_VERSION}}"
     - " Storage Class File Override:      {{STORAGECLASS_FILE_OVERRIDE}}"
     - " Storage Class Block Override:     {{STORAGECLASS_BLOCK_OVERRIDE}}"
@@ -77,9 +77,9 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: PREREQUISITES -      🔐 Check Entitlement provided
-  fail: msg="Please provide IBM Entitlement Pull Secret Key/Token (Get it from here https://myibm.ibm.com/products-services/containerlibrary)"
-  when: "ENTITLED_REGISTRY_KEY is not defined"
+# - name: PREREQUISITES -      🔐 Check Entitlement provided
+#   fail: msg="Please provide IBM Entitlement Pull Secret Key/Token (Get it from here https://myibm.ibm.com/products-services/containerlibrary)"
+#   when: "ENTITLED_REGISTRY_KEY is not defined"
 
 
 # *************************************************************************************************************************************************
@@ -87,13 +87,15 @@
 # Login
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: LOGIN -              🔐 Check Login credentials
-  fail: msg="If you select auto-login, you have to provide Cluster credentials"
-  when: OCP_LOGIN and OCP_URL=="not_configured" and OCP_TOKEN=="not_configured"
+# - name: LOGIN -              🔐 Check Login credentials
+#   fail: msg="If you select auto-login, you have to provide Cluster credentials"
+#   # when: OCP_LOGIN and OCP_URL=="not_configured" and OCP_TOKEN=="not_configured"
+#   when: OCP_LOGIN
 
 
 - name: LOGIN -              👨‍💼 Login to cluster
-  shell: "oc login --token={{ OCP_TOKEN }} --server={{ OCP_URL }}"   
+  # shell: "oc login --token={{ OCP_TOKEN }} --server={{ OCP_URL }}"   
+  shell: oc login --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --server=https://kubernetes.default --certificate-authority='/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
   register: k8s_auth_results
   when: OCP_LOGIN == true
 
@@ -112,7 +114,7 @@
   register: CLUSTER_NAME
 
 - name: ROOKCEPH -           💾 Set Global Cluster Name={{ CLUSTER_NAME.stdout_lines[0] }} 
-  set_fact: CLUSTER_NAME_GLOBAL={{ CLUSTER_NAME.stdout_lines[0] }} 
+  set_fact: CLUSTER_NAME_GLOBAL="{{ CLUSTER_NAME.stdout_lines[0] }}" 
 
 
 

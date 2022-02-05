@@ -63,25 +63,25 @@
 
 
   
-# --------------------------------------------------------------------------------------------------------------------------------------
-# Wait for Cassandra Pod
-# --------------------------------------------------------------------------------------------------------------------------------------
-- name: CONFIG -             🕦 Wait for Cassandra Pod to become available - this can take up to 45 minutes (hack for 3.2)
-  shell: oc get po -n {{ WAIOPS_NAMESPACE }} | grep aiops-topology-cassandra-auth-secret-generator| grep -c ""
-  register: kubectl_get_pods
-  until: kubectl_get_pods.stdout == "1"
-  retries: 500
-  delay: 15
+# # --------------------------------------------------------------------------------------------------------------------------------------
+# # Wait for Cassandra Pod
+# # --------------------------------------------------------------------------------------------------------------------------------------
+# - name: CONFIG -             🕦 Wait for Cassandra Pod to become available - this can take up to 45 minutes (hack for 3.2)
+#   shell: oc get po -n {{ WAIOPS_NAMESPACE }} | grep aiops-topology-cassandra-auth-secret-generator| grep -c ""
+#   register: kubectl_get_pods
+#   until: kubectl_get_pods.stdout == "1"
+#   retries: 500
+#   delay: 15
 
 
-# --------------------------------------------------------------------------------------------------------------------------------------
-# Patch Service Account
-# --------------------------------------------------------------------------------------------------------------------------------------
-- name: CONFIG -             🩹 Patch aiops-topology-service-account (hack for 3.2)
-  shell: |
-    oc patch -n {{ WAIOPS_NAMESPACE }} serviceaccount aiops-topology-service-account -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
-    oc delete pod $(oc get po -n {{ WAIOPS_NAMESPACE }}|grep ImagePull|awk '{print$1}') -n {{ WAIOPS_NAMESPACE }}
-  ignore_errors: yes
+# # --------------------------------------------------------------------------------------------------------------------------------------
+# # Patch Service Account
+# # --------------------------------------------------------------------------------------------------------------------------------------
+# - name: CONFIG -             🩹 Patch aiops-topology-service-account (hack for 3.2)
+#   shell: |
+#     oc patch -n {{ WAIOPS_NAMESPACE }} serviceaccount aiops-topology-service-account -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+#     oc delete pod $(oc get po -n {{ WAIOPS_NAMESPACE }}|grep ImagePull|awk '{print$1}') -n {{ WAIOPS_NAMESPACE }}
+#   ignore_errors: yes
 
 
   

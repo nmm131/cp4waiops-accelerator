@@ -66,22 +66,22 @@ echo "  "
 while getopts "t:v:p:l:c:" opt
 do
     case "$opt" in
-        t ) INPUT_TOKEN="$OPTARG" ;;
+        # t ) INPUT_TOKEN="$OPTARG" ;;
         v ) VERBOSE="$OPTARG" ;;
     esac
 done
 
 
 
-if [[ $INPUT_TOKEN == "" ]];
-then
-    echo " ERROR: Please provide the Registry Token"
-    echo " USAGE: $0 -t <REGISTRY_TOKEN> [-v true]"
-    exit 1
-else
-    echo " 🔐  Token                     Provided"
-    export ENTITLED_REGISTRY_KEY=$INPUT_TOKEN
-fi
+# if [[ $INPUT_TOKEN == "" ]];
+# then
+#     echo " ERROR: Please provide the Registry Token"
+#     echo " USAGE: $0 -t <REGISTRY_TOKEN> [-v true]"
+#     exit 1
+# else
+#     echo " 🔐  Token                     Provided"
+#     export ENTITLED_REGISTRY_KEY=$INPUT_TOKEN
+# fi
 
 echo ""
 
@@ -115,6 +115,6 @@ echo "  "
 echo "***************************************************************************************************************************************************"
 
 cd ansible
-ansible-playbook -e ENTITLED_REGISTRY_KEY=$ENTITLED_REGISTRY_KEY 11_install-cp4waiops_event_manager.yaml $VERBOSE
+ansible-playbook -e 11_install-cp4waiops_event_manager.yaml $VERBOSE
 cd -
 

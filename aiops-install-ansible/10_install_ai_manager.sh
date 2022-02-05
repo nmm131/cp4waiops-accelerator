@@ -71,23 +71,27 @@ do
     esac
 done
 
-printf "Please input an IBM Entitlement Key: [input not hidden] "
-read -r INPUT_TOKEN
+# printf "Please input an IBM Entitlement Key: [input not hidden] "
+# read -r INPUT_TOKEN
 
-printf "Please input an OCP URL: "
-read -r OCP_URL
+# printf "Please input an OCP URL: "
+# read -r OCP_URL
 
-printf "Please input an OCP Token: [input not hidden] "
-read -r OCP_TOKEN
+# printf "Please input an OCP Token: [input not hidden] "
+# read -r OCP_TOKEN
 
-printf "Please input a File Storage Class: "
-read -r STORAGECLASS_FILE_OVERRIDE
+# printf "Please input a File Storage Class: "
+# read -r STORAGECLASS_FILE_OVERRIDE
 
-printf "Please input a Block Storage Class: "
-read -r STORAGECLASS_BLOCK_OVERRIDE
+STORAGECLASS_FILE_OVERRIDE=ibmc-file-gold-gid
 
-export OCP_URL
-export OCP_TOKEN
+# printf "Please input a Block Storage Class: "
+# read -r STORAGECLASS_BLOCK_OVERRIDE
+
+STORAGECLASS_BLOCK_OVERRIDE=ibmc-file-gold-gid
+
+# export OCP_URL
+# export OCP_TOKEN
 export STORAGECLASS_FILE_OVERRIDE
 export STORAGECLASS_BLOCK_OVERRIDE
 
@@ -98,15 +102,15 @@ export STORAGECLASS_BLOCK_OVERRIDE
 
 
 
-if [[ $INPUT_TOKEN == "" ]];
-then
-    echo " ERROR: Please provide the Registry Token"
-    echo " USAGE: $0 -t <REGISTRY_TOKEN> [-v true]"
-    exit 1
-else
-    echo " 🔐  Token                     Provided"
-    export ENTITLED_REGISTRY_KEY=$INPUT_TOKEN
-fi
+# if [[ $INPUT_TOKEN == "" ]];
+# then
+#     echo " ERROR: Please provide the Registry Token"
+#     echo " USAGE: $0 -t <REGISTRY_TOKEN> [-v true]"
+#     exit 1
+# else
+#     echo " 🔐  Token                     Provided"
+#     export ENTITLED_REGISTRY_KEY=$INPUT_TOKEN
+# fi
 
 echo ""
 
@@ -140,10 +144,10 @@ echo "  "
 echo "***************************************************************************************************************************************************"
 
 cd ansible
-ansible-playbook -e ENTITLED_REGISTRY_KEY=$ENTITLED_REGISTRY_KEY 10_install-cp4waiops_ai_manager.yaml $VERBOSE
+ansible-playbook 10_install-cp4waiops_ai_manager.yaml $VERBOSE
 cd -
 
 # ./11_install_event_manager.sh -t $OCP_TOKEN
-./tools/11_check_install.sh
-echo "\n\n"
-./tools/10_debug_install.sh
+# ./tools/11_check_install.sh
+# echo "\n\n"
+# ./tools/10_debug_install.sh

@@ -351,8 +351,8 @@ The Playbook provides the means to automatically login to the cluster by filling
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 OCP_LOGIN: true
-OCP_URL: https://c100-e.eu-gb.containers.cloud.ibm.com:31513
-OCP_TOKEN: sha256~T6-cxxxxxxxxxxxx-dtuj3ELQfpioUhHms
+# OCP_URL: https://c100-e.eu-gb.containers.cloud.ibm.com:31513
+# OCP_TOKEN: sha256~T6-cxxxxxxxxxxxx-dtuj3ELQfpioUhHms
 
 #Version of your OCP Cluster (override by setting manually - 4.6, 4.7,...)
 OCP_MAJOR_VERSION: automatic

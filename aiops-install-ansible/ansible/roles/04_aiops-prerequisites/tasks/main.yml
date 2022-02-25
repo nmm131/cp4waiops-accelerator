@@ -103,14 +103,23 @@
   ignore_errors: yes
   when: K8S_EXISTS.resources|length == 0
 
-- name: Patch AIOpsAnalyticsOrchestrator aiops
-  shell: |
-    oc get -n {{ WAIOPS_NAMESPACE }} AIOpsAnalyticsOrchestrator aiops -o yaml > ./roles/04_aiops-prerequisites/files/aiops-patch-template.yaml
-    yq w aiops-patch-template.yaml "spec.pullSecrets[+]" "ibm-aiops-pull-secret" > ./roles/04_aiops-prerequisites/files/aiops-patch.yaml
-    oc apply -f aiops-patch.yaml
-    oc delete -n {{ WAIOPS_NAMESPACE }} pods $(oc get pods -n cp4waiops --no-headers -o custom-columns=":metadata.name" | grep "aiops-ir-analytics")
-
-
+#####################################################
+#####################################################
+#####################################################
+#####################################################
+# This patch is working, but it is in the wrong place
+#####################################################
+# - name: Patch AIOpsAnalyticsOrchestrator aiops
+#   shell: |
+#     oc get -n {{ WAIOPS_NAMESPACE }} AIOpsAnalyticsOrchestrator aiops -o yaml > ./roles/04_aiops-prerequisites/files/aiops-patch-template.yaml
+#     yq w aiops-patch-template.yaml "spec.pullSecrets[+]" "ibm-aiops-pull-secret" > ./roles/04_aiops-prerequisites/files/aiops-patch.yaml
+#     oc apply -f aiops-patch.yaml
+#     oc delete -n {{ WAIOPS_NAMESPACE }} pods $(oc get pods -n cp4waiops --no-headers -o custom-columns=":metadata.name" | grep "aiops-ir-analytics")
+#   ignore_errors: yes
+#####################################################
+#####################################################
+#####################################################
+#####################################################
 
 # Patch builder service account
 # - name: PREREQUISITES -      🩹 Patch builder service account

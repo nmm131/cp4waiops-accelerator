@@ -1,13 +1,13 @@
 #!/bin/sh
 set -x
-CPD_CLUSTER_HOST='https://cpd-cp4waiops.itzroks-662001vtd7-t0gdwo-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud'
+CPD_CLUSTER_HOST='cpd-cp4waiops.itzroks-662001vtd7-lmcyro-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud'
 PORT='443'
-ADMIN_USERNAME=''
+ADMIN_USERNAME='admin'
 ADMIN_PASSWORD="$(oc -n ibm-common-services get secret platform-auth-idp-credentials -o jsonpath='{.data.admin_password}' | base64 -d)"
 TOKEN="$(curl -k -X POST -H "cache-control: no-cache" -H "Content-Type: application/json" -d "{\"username\":\"$ADMIN_USERNAME\",\"password\":\"$ADMIN_PASSWORD\"}" "https://$CPD_CLUSTER_HOST:$PORT/icp4d-api/v1/authorize" | jq | grep token | tr -d '"' | cut -d ':' -f2)"
-USERNAME=''
-PASSWORD=''
-DISPLAY_NAME=''
+USERNAME='guest'
+PASSWORD='guest_pass'
+DISPLAY_NAME='guest'
 
 # zen_administrator_role permissions
 # "administrator",

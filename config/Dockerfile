@@ -31,5 +31,6 @@ RUN mkdir -p /.ansible /.kube /.config /.cache /.cloudctl && \
     chmod -R g=u /code /.ansible /.kube /.config /.cache /.cloudctl
 RUN apt-get install -y vim
 USER 1001
-CMD ./10_install_ai_manager.sh
+WORKDIR /code/ansible
+CMD ansible-playbook install-ai-manager.yaml
 # ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -35,7 +35,7 @@
   # Create Gateway
   # --------------------------------------------------------------------------------------------------------------------------------------
   - name: GATEWAY -            🚀 Create Gateway
-    community.kubernetes.k8s:
+    core.kubernetes.k8s:
       state: present
       namespace: "{{ WAIOPS_NAMESPACE }}"
       template: ./templates/gateway/1_gateway-generic-template.j2

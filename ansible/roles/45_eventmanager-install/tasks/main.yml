@@ -89,7 +89,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Create Namespace 
 - name: EVENTMANAGER -       🚀 Create EventManager namespace {{ EVTMGR_NAMESPACE }}
-  community.kubernetes.k8s:
+  core.kubernetes.k8s:
     api_version: v1
     kind: Namespace
     name: "{{ EVTMGR_NAMESPACE }}"
@@ -110,7 +110,7 @@
 
 # Create EventManager Catalog
 - name: EVENTMANAGER -       🚀 Install Catalog
-  community.kubernetes.k8s:
+  core.kubernetes.k8s:
     state: present
     src: ./templates/eventmanager/1_cat-ibm-eventmanager.yaml
 
@@ -118,14 +118,14 @@
 
 # Create EventManager Operator Group
 - name: EVENTMANAGER -       🚀 Install Operator Group
-  community.kubernetes.k8s:
+  core.kubernetes.k8s:
     state: present
     template: ./templates/eventmanager/2_group-ibm-eventmanager.j2
 
 
 # Create EventManager Subscription
 - name: EVENTMANAGER -       🚀 Install Subscription
-  community.kubernetes.k8s:
+  core.kubernetes.k8s:
     state: present
     template: ./templates/eventmanager/3_sub-ibm-eventmanager.j2
 
@@ -142,7 +142,7 @@
 
 # Create EventManager Instance
 - name: EVENTMANAGER -       🚀 Install EventManager
-  community.kubernetes.k8s:
+  core.kubernetes.k8s:
     state: present
     template: ./templates/eventmanager/4_eventmanager-install-template.j2
 

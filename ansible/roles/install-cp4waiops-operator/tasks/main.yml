@@ -1,22 +1,22 @@
 - name: Install IBM Operator Catalog Source
-  core.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     src: ./files/ibm-operator-catalogsource.yaml
 
 
 # Create IBM AIOps Catalog
 # - name: AI Manager -           🚀 Install IBM AIOps Catalog
-#   core.kubernetes.k8s:
+#   kubernetes.core.k8s:
 #     state: present
 #     template: ./templates/waiops/2_cat-ibm-aiops.j2
 
 - name: Install Operator Group
-  core.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     template: ./templates/cp4waiops-operatorgroup.j2
 
 - name: Install Subscription
-  core.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     template: ./templates/cp4waiops-subscription.j2
 

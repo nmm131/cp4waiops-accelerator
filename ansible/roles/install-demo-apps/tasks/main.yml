@@ -7,7 +7,7 @@
 - name: Install RobotShop
   block:
   - name: Create robot-shop namespace
-    core.kubernetes.k8s:
+    kubernetes.core.k8s:
       api_version: v1
       kind: Namespace
       name: "robot-shop"
@@ -26,14 +26,14 @@
               
 
   - name: Create robot-shop application
-    core.kubernetes.k8s:
+    kubernetes.core.k8s:
       state: present
       namespace: robot-shop
       src: ./files/robot-all-in-one.yaml
     #when: INSTALL_DEMO_APPS == true
 
   - name: Create robot-shop load generation
-    core.kubernetes.k8s:
+    kubernetes.core.k8s:
       state: present
       namespace: robot-shop
       src: ./files/load-deployment.yaml
@@ -49,7 +49,7 @@
 - name: Install Kubetoy
   block:
   - name: Create kubetoy namespace
-    core.kubernetes.k8s:
+    kubernetes.core.k8s:
       api_version: v1
       kind: Namespace
       name: "kubetoy"
@@ -58,7 +58,7 @@
             
 
   - name: Create kubetoy application
-    core.kubernetes.k8s:
+    kubernetes.core.k8s:
       state: present
       namespace: kubetoy
       src: ./files/kubetoy_all_in_one.yaml

@@ -4,12 +4,15 @@
 # Run Prerequisites
     - role: login-openshift
       when: INSTALL_AIOPS
+    
+    # - role: create-cp4waiops-user
   
-    - role: 02_rook-ceph
+    - role: install-rook-ceph
       when: ROOK_CEPH_INSTALL_MODE=="enable" or ROOK_CEPH_INSTALL_MODE=="automatic"
 
-    # - role: 03_aiops-get-storage-class
-    #   when: INSTALL_AIOPS
+    - role: set-storage-class
+      when: INSTALL_AIOPS
+
     - role: create-pull-secrets
       when: INSTALL_AIOPS
 
@@ -83,8 +86,6 @@
 # Get all login credentials
     - role: print-logins
       when: PRINT_LOGINS
-
-
 
 
 

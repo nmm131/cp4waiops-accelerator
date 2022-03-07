@@ -1,0 +1,17 @@
+{
+    "uniqueId": "instana-group-201",
+    "name": "instana-group-201",
+    "entityTypes": [
+      "network"
+    ],
+    "_references": [
+      {
+        "_toUniqueId": "instana-resource-201",
+        "_edgeType": "groups"
+      },
+      {
+        "_toUniqueId": "instana-resource-202",
+        "_edgeType": "groups"
+      }
+    ]
+}

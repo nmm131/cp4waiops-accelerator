@@ -1,4 +1,4 @@
 - name: Install the AI Manager Custom Resource
-  core.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     template: './templates/cp4waiops-installation.j2'

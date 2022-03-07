@@ -1,6 +1,8 @@
 #!/bin/sh
 set -x
-CPD_CLUSTER_HOST='cpd-cp4waiops.itzroks-662001vtd7-lmcyro-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud'
+NAMESPACE=cp4waiops
+PROXY_DOMAIN=$(oc get ingress.config cluster -o jsonpath='{.spec.domain}')
+CPD_CLUSTER_HOST="cpd-$NAMESPACE.$PROXY_DOMAIN"
 PORT='443'
 ADMIN_USERNAME='admin'
 ADMIN_PASSWORD="$(oc -n ibm-common-services get secret platform-auth-idp-credentials -o jsonpath='{.data.admin_password}' | base64 -d)"

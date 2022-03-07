@@ -1,11 +1,11 @@
 - name: Create the AWX Operator
-  core.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     namespace: awx
     src: ./files/awx/operator-install.yaml
   
 - name: Create the AWX Instance
-  core.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     namespace: awx
     src: ./files/awx/awx-deploy-cr.yaml

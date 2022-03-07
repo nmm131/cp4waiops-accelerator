@@ -52,50 +52,48 @@
 - name: Login to cluster
   shell: oc login --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --server=https://kubernetes.default --certificate-authority='/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
 
-# - name: Get Cluster FQDN
-#   shell: |
-#     CLUSTER_ROUTE=$(oc get routes console -n openshift-console | tail -n 1 2>&1 ) 
-#     CLUSTER_FQDN=$( echo $CLUSTER_ROUTE | awk '{print $2}')
-#     echo ${CLUSTER_FQDN##*console.}
-#   register: CLUSTER_NAME
+- name: Get Cluster FQDN
+  shell: |
+    CLUSTER_ROUTE=$(oc get routes console -n openshift-console | tail -n 1 2>&1 ) 
+    CLUSTER_FQDN=$( echo $CLUSTER_ROUTE | awk '{print $2}')
+    echo ${CLUSTER_FQDN##*console.}
+  register: CLUSTER_NAME
 
-# - name: ROOKCEPH -           💾 Set Global Cluster Name={{ CLUSTER_NAME.stdout_lines[0] }} 
-#   set_fact: CLUSTER_NAME_GLOBAL="{{ CLUSTER_NAME.stdout_lines[0] }}" 
+- name: ROOKCEPH -           💾 Set Global Cluster Name={{ CLUSTER_NAME.stdout_lines[0] }} 
+  set_fact: CLUSTER_NAME_GLOBAL="{{ CLUSTER_NAME.stdout_lines[0] }}" 
 
+- name: Check if Rook-Ceph should be installed for mode {{ ROOK_CEPH_INSTALL_MODE }}
+  shell: |
+    INSTALL_MODE="{{ ROOK_CEPH_INSTALL_MODE }}"
+    CLUSTER_NAME={{ CLUSTER_NAME.stdout_lines[0] }}
+    if [[ $INSTALL_MODE == "enable" ]];
+    then
+      echo "true"
+    else
+      if [[ $INSTALL_MODE == "disable" ]];
+      then
+        echo "false"
+      else
+        if [[ $CLUSTER_NAME =~ "fyre.ibm.com" ]];
+        then
+            echo "true"
+        else
+            echo "false"
+        fi 
+      fi
+    fi
+  register: INSTALL_ROOK_CEPH_TEST
 
+- name: ROOKCEPH -           💾 Install Rook-Ceph={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
+  set_fact: INSTALL_ROOK_CEPH={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
 
-# - name: Check if Rook-Ceph should be installed for mode {{ ROOK_CEPH_INSTALL_MODE }}
-#   shell: |
-#     INSTALL_MODE="{{ ROOK_CEPH_INSTALL_MODE }}"
-#     CLUSTER_NAME={{ CLUSTER_NAME.stdout_lines[0] }}
-#     if [[ $INSTALL_MODE == "enable" ]];
-#     then
-#       echo "true"
-#     else
-#       if [[ $INSTALL_MODE == "disable" ]];
-#       then
-#         echo "false"
-#       else
-#         if [[ $CLUSTER_NAME =~ "fyre.ibm.com" ]];
-#         then
-#             echo "true"
-#         else
-#             echo "false"
-#         fi 
-#       fi
-#     fi
-#   register: INSTALL_ROOK_CEPH_TEST
+- name: ROOKCEPH -           💾 Override Storage Class File to 'rook-cephfs'={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
+  set_fact: STORAGECLASS_FILE_OVERRIDE=rook-cephfs 
+  when: INSTALL_ROOK_CEPH
 
-# - name: ROOKCEPH -           💾 Install Rook-Ceph={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
-#   set_fact: INSTALL_ROOK_CEPH={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
-
-# - name: ROOKCEPH -           💾 Override Storage Class File to 'rook-cephfs'={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
-#   set_fact: STORAGECLASS_FILE_OVERRIDE=rook-cephfs 
-#   when: INSTALL_ROOK_CEPH
-
-# - name: ROOKCEPH -           💾 Override Storage Class Large Block to 'rook-cephfs'={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
-#   set_fact: STORAGECLASS_BLOCK_OVERRIDE=rook-cephfs
-#   when: INSTALL_ROOK_CEPH
+- name: ROOKCEPH -           💾 Override Storage Class Large Block to 'rook-cephfs'={{ INSTALL_ROOK_CEPH_TEST.stdout_lines[0] }} 
+  set_fact: STORAGECLASS_BLOCK_OVERRIDE=rook-cephfs
+  when: INSTALL_ROOK_CEPH
 
 
 

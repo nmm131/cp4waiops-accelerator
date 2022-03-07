@@ -18,9 +18,9 @@ URL="https://cpd-$NAMESPACE.$PROXY_DOMAIN"
 # https://$URL/icp4d-api/v1/authorize
 # https://$URL/api/v1/usermgmt/v1/user/apiKey
 # Return the status of the ui-api
-curl -k -X GET \
-"$APPLICATION_MANAGER_BASE_URL/healthcheck" \
-| jq
+# curl -k -X GET \
+# "$APPLICATION_MANAGER_BASE_URL/healthcheck" \
+# | jq
 
 # Get kubernetes observer jobs
 # curl -k -X GET \

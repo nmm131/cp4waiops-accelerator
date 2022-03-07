@@ -4,15 +4,44 @@ set -x
 NAMESPACE='cp4waiops'
 PROXY_DOMAIN=$(oc get ingress.config cluster -o jsonpath='{.spec.domain}')
 URL="https://cpd-$NAMESPACE.$PROXY_DOMAIN"
-APPLICATION_MANAGER_BASE_URL="https://asm-svt-$NAMESPACE.$PROXY_DOMAIN/1.0/ui-api"
+APPLICATION_MANAGER_BASE_URL="https://asm-svt-$NAMESPACE.$PROXY_DOMAIN/1.0/topology"
 API_KEY='7xaacbpJZPjrHaLeUGw09ugmgIQQvFtwtFgKwiXH'
+PASSWORD="$(oc get secret aiops-topology-asm-credentials -n cp4waiops -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}' | grep "password" | cut -d ":" -f2 | xargs)"
+USERNAME="$(oc get secret aiops-topology-asm-credentials -n cp4waiops -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}' | grep "username" | cut -d ":" -f2 | xargs)"
+X_TENANT_ID='cfd95b7e-3bc7-4006-a4a8-a73a79c71255'
 
-curl -k -X GET \
+
+
+### resources
+curl -k -X POST \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \
--H "Authorization: ZenApiKey $API_KEY" \
-"$APPLICATION_MANAGER_BASE_URL/healthcheck" \
-| jq
+-H "X-TenantID: $X_TENANT_ID" \
+--user "$USERNAME:$PASSWORD" \
+"$APPLICATION_MANAGER_BASE_URL/resources" -d @cp4waiops-assets/create-resource.json
+
+### groups
+curl -k -X POST \
+-H  "Content-Type: application/json" \
+-H  "Accept: application/json" \
+-H "X-TenantID: $X_TENANT_ID" \
+--user "$USERNAME:$PASSWORD" \
+"$APPLICATION_MANAGER_BASE_URL/groups" -d @cp4waiops-assets/create-group.json
+
+### app
+curl -k -X POST \
+-H  "Content-Type: application/json" \
+-H  "Accept: application/json" \
+-H "X-TenantID: $X_TENANT_ID" \
+--user "$USERNAME:$PASSWORD" \
+"$APPLICATION_MANAGER_BASE_URL/groups" -d @cp4waiops-assets/create-application.json
+
+# curl -k -X GET \
+# -H  "Content-Type: application/json" \
+# -H  "Accept: application/json" \
+# -H "Authorization: ZenApiKey $API_KEY" \
+# "$APPLICATION_MANAGER_BASE_URL/healthcheck" \
+# | jq
 
 # Agile Service Manager (ASM) OpenShift Credentials
 # PASSWORD="$(oc get secret aiops-topology-asm-credentials -n cp4waiops -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}' | grep "password" | cut -d ":" -f2 | xargs)"

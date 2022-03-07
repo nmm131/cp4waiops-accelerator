@@ -20,7 +20,7 @@
     echo $(oc -n ibm-common-services get secret platform-auth-idp-credentials -o jsonpath='{.data.admin_password}' | base64 --decode)
   register: CS_PWD
 
-    - name: LDAPREGISTER -       📥 SC Login
+- name: LDAPREGISTER -       📥 SC Login
   shell:   
     cloudctl login -a {{ CS_SERVER.stdout_lines[0] }} --skip-ssl-validation -u admin -p {{ CS_PWD.stdout_lines[0] }} -n kube-system
   register: LOGIN

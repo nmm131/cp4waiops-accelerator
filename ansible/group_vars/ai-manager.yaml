@@ -260,5 +260,10 @@ SUBSCRIPTION_CHANNEL: v3.2
 
 #CATALOG_IMAGE: icr.io/cpopen/aiops-orchestrator-catalog:3.2-latest
 
-
-
+GUEST_USERNAME: guest
+GUEST_PASSWORD: gu357_p@55
+GUEST_EMAIL: example@example.com
+GUEST_DISPLAY_NAME: guest
+GUEST_ROLES: zen_administrator_role
+CP4WAIOPS_PORT: 443
+ADMIN_USERNAME: admin

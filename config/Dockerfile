@@ -25,12 +25,11 @@ RUN apt-get update && \
     wget https://github.com/mikefarah/yq/releases/download/v4.18.1/yq_linux_amd64.tar.gz -O yq.tar.gz && \
     tar xfzv yq.tar.gz && \
     mv yq_linux_amd64 /usr/local/bin/yq
-COPY ./aiops-install-ansible/ ./
+RUN apt-get install -y vim
+COPY ./ansible/ ./
 RUN mkdir -p /.ansible /.kube /.config /.cache /.cloudctl && \
     chgrp -R 0 /code /.ansible /.kube /.config /.cache /.cloudctl && \
     chmod -R g=u /code /.ansible /.kube /.config /.cache /.cloudctl
-RUN apt-get install -y vim
 USER 1001
-WORKDIR /code/ansible
 CMD ansible-playbook install-ai-manager.yaml
 # ENTRYPOINT ["tail", "-f", "/dev/null"]

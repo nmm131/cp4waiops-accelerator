@@ -16,3 +16,6 @@
   register: demo_account
   when: K8S_EXISTS.resources|length == 0
 
+- name: create demo_account variable
+  set_fact: 
+    demo_account_var: demo_account.stdout

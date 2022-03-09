@@ -43,5 +43,5 @@ curl -k -X POST \
 -H  "Accept: application/json" \
 -H "X-TenantID: $X_TENANT_ID" \
 --user "$USERNAME:$PASSWORD" \
--d '{"unique_id":"RobotShop","type":"string","description":"RobotShop job description","parameters":{"data_center":"demo","namespace":"robot-shop","hide_terminated_pods":true,"namespaceGroupParameters":{"correlate":true}},"schedule":{"interval":0,"units":"Days","nextRunTime":0},"scheduleRequest":true}' \
+-d @cp4waiops-assets/kubernetes-observer.json \
 "$KUBERNETES_OBSERVER_BASE_URL/jobs/local"

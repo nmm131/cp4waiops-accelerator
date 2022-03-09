@@ -23,8 +23,8 @@
     - "** Installation Options ***********************************************************************"
     - " Rook-Ceph installation method:    {{ROOK_CEPH_INSTALL_MODE}}"
     - " OCP Major Version:                {{OCP_MAJOR_VERSION}}"
-    - " Storage Class File Override:      {{STORAGECLASS_FILE_OVERRIDE}}"
-    - " Storage Class Block Override:     {{STORAGECLASS_BLOCK_OVERRIDE}}"
+    - " Storage Class File Override:      {{STORAGECLASS_FILE}}"
+    - " Storage Class Block Override:     {{STORAGECLASS_BLOCK}}"
     - ""
     - "**************************************************************************************************************************"
 

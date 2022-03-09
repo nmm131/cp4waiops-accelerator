@@ -52,8 +52,8 @@ INSTALL_EVTMGR: false
 EVTMGR_NAMESPACE: cp4waiops-evtmgr
 
 # Override the Storage Class auto detection
-STORAGECLASS_FILE_OVERRIDE: not_configured
-STORAGECLASS_BLOCK_OVERRIDE: not_configured
+STORAGECLASS_FILE: not_configured
+STORAGECLASS_BLOCK: not_configured
 
 # *************************************************************************************************************************************************
 # --------------------------------------------------------------------------------------------------------------------------------------

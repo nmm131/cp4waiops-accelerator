@@ -1,21 +1,30 @@
 
 - name: Check OCP Demouser Account
-  k8s_info:
+  kubernetes.core.k8s_info:
     kind: serviceaccount
     name: demo-admin
     namespace: default
   register: K8S_EXISTS
 
 - name: Create OCP Demouser Account
-  shell: |
-        oc project {{ WAIOPS_NAMESPACE }} 
-        oc create serviceaccount -n default demo-admin
-        oc create clusterrolebinding test-admin --clusterrole=cluster-admin --serviceaccount=default:demo-admin
-        oc create clusterrolebinding ibm-zen-operator-serviceaccount --clusterrole=cluster-admin --serviceaccount=ibm-common-services:ibm-zen-operator-serviceaccount
-  ignore_errors: yes
-  register: demo_account
-  when: K8S_EXISTS.resources|length == 0
+  block:
+    - name: Create a project
+      kubernetes.core.k8s:
+      template: ./templates/namespace.j2
+      state: present
 
-- name: create demo_account variable
-  set_fact: 
-    demo_account_var: demo_account.stdout
+    - name: Create a Service Account
+      kubernetes.core.k8s:
+      src: ./files/service-account.yaml
+      state: present
+
+    - name: Create a demo-admin ServiceAccount ClusterRoleBinding
+      kubernetes.core.k8s:
+      src: ./files/demo-cluster-role-binding.yaml
+      state: present
+
+    - name: Create an ibm-zen-operator ServiceAccount ClusterRoleBinding
+      kubernetes.core.k8s:
+      src: ./files/ibm-cluster-role-binding.yaml
+      state: present
+  when: K8S_EXISTS.resources|length == 0

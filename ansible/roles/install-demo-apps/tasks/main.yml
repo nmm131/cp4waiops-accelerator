@@ -1,5 +1,5 @@
 - name: Check RobotShop
-  k8s_info:
+  kubernetes.core.k8s_info:
     kind: Namespace
     name: "robot-shop"
   register: K8S_EXISTS
@@ -8,40 +8,39 @@
   block:
   - name: Create robot-shop namespace
     kubernetes.core.k8s:
-      api_version: v1
-      kind: Namespace
-      name: "robot-shop"
+      src: ./files/robot-shop-ns.yaml
       state: present
-    #when: INSTALL_DEMO_APPS == true
+
+  - name: Create a robot-shop Service Account ClusterRoleBinding
+  kubernetes.core.k8s:
+    src: ./files/robot1-cluster-role-binding.yaml
+    state: present
+
+  - name: Create another robot-shop Service Account ClusterRoleBinding
+  kubernetes.core.k8s:
+    src: ./files/robot2-cluster-role-binding.yaml
+    state: present
 
   - name: Create robot-shop service account
-    shell: |
-      oc adm policy add-scc-to-user privileged -n robot-shop -z robot-shop
-      oc create clusterrolebinding default-robotinfo1-admin --clusterrole=cluster-admin --serviceaccount=robot-shop:robot-shop
-      oc adm policy add-scc-to-user privileged -n robot-shop -z default                                
-      oc create clusterrolebinding default-robotinfo2-admin --clusterrole=cluster-admin --serviceaccount=robot-shop:default
-    ignore_errors: yes
-    register: demo_robot_shop
-    #when: INSTALL_DEMO_APPS == true
-              
+  shell: |
+    oc adm policy add-scc-to-user privileged -n robot-shop -z robot-shop
+    oc adm policy add-scc-to-user privileged -n robot-shop -z default                                
+  # ignore_errors: yes   
 
   - name: Create robot-shop application
     kubernetes.core.k8s:
       state: present
       namespace: robot-shop
       src: ./files/robot-all-in-one.yaml
-    #when: INSTALL_DEMO_APPS == true
 
   - name: Create robot-shop load generation
     kubernetes.core.k8s:
       state: present
-      namespace: robot-shop
       src: ./files/load-deployment.yaml
-    #when: INSTALL_DEMO_APPS == true
   when: K8S_EXISTS.resources|length == 0
 
 - name: Check Kubetoy
-  k8s_info:
+  kubernetes.core.k8s_info:
     kind: Namespace
     name: "kubetoy"
   register: K8S_EXISTS
@@ -50,18 +49,12 @@
   block:
   - name: Create kubetoy namespace
     kubernetes.core.k8s:
-      api_version: v1
-      kind: Namespace
-      name: "kubetoy"
+      src: ./files/kubetoy-ns.yaml
       state: present
-    #when: INSTALL_DEMO_APPS == true
-            
 
   - name: Create kubetoy application
     kubernetes.core.k8s:
       state: present
-      namespace: kubetoy
       src: ./files/kubetoy_all_in_one.yaml
-    #when: INSTALL_DEMO_APPS == true
   when: K8S_EXISTS.resources|length == 0
 

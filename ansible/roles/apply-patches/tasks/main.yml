@@ -3,7 +3,7 @@
   register: ingress_patched
 
 - name: Check Topology Routes
-  k8s_info:
+  kubernets.core.k8s_info:
     api_version: route.openshift.io/v1
     kind: Route
     name: topology-merge
@@ -12,6 +12,9 @@
 
 - name: Create Topology Routes
   block:
+  # todo: topology-route.j2
+  # topology-merge-{{ WAIOPS_NAMESPACE }}.{{ HOST }}
+  # https://topology-merge-cp4waiops.itzroks-662001vtd7-amsxm5-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
   - name: Create Topology Route - topology-merge
     shell: oc create route passthrough topology-merge -n {{ WAIOPS_NAMESPACE }} --insecure-policy="Redirect" --service=aiops-topology-merge --port=https-merge-api
     ignore_errors: yes

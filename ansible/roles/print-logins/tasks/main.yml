@@ -231,9 +231,7 @@
     echo " "
   register: output_string
   ignore_errors: yes
-  run_once: True
 - name: LOGIN -          🔐 Service Now Connection
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true
-  run_once: True

@@ -37,13 +37,24 @@ echo "\n\n
 # --user "$USERNAME:$PASSWORD" \
 # "$KUBERNETES_OBSERVER_BASE_URL/jobs?_limit=100"
 
+# curl -k -X DELETE \
+# -H  "Content-Type: application/json" \
+# -H  "Accept: application/json" \
+# -H "X-TenantID: $X_TENANT_ID" \
+# --user "$USERNAME:$PASSWORD" \
+# "$REST_OBSERVER_BASE_URL/jobs/listenJob"
+# printf "\n\n\n
+
+
+# "
+# sleep 5
 # Create a kubernetes observer local job
 curl -k -X POST \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \
 -H "X-TenantID: $X_TENANT_ID" \
 --user "$USERNAME:$PASSWORD" \
--d '{"unique_id":"listenJob","type":"string","description":"job description","parameters":{"provider":"listenJob"},"schedule":{"interval":0,"units":"Days","nextRunTime":0},"scheduleRequest":true}' \
+-d @cp4waiops-assets/rest-observer.json \
 "$REST_OBSERVER_BASE_URL/jobs/bulk_replace"
 
 # -d '{"unique_id":"RobotShop","type":"string","description":"RobotShop job description","parameters":{"data_center":"demo","namespace":"robot-shop","hide_terminated_pods":true,"namespaceGroupParameters":{"correlate":true}},"schedule":{"interval":0,"units":"Days","nextRunTime":0},"scheduleRequest":true}' \

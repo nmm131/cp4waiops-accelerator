@@ -1,70 +1,62 @@
-- name: Check if Rook-Ceph should be installed
-  k8s_info:
+- name: Get Rook-Ceph namespace
+  kubernetes.core.k8s_info:
     kind: Namespace
     name: rook-ceph
   register: K8S_EXISTS
 
 - name: Install Rook-Ceph
   block:
-
   - name: Rook-Ceph CRDS
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/crds.yaml
-    when: INSTALL_ROOK_CEPH
-
-  - name: Rook-Ceph Common
+      src: ./files/crds.yaml
+    when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
+  - name: Rook-Ceph Common Resources (e.g., rook-ceph namespace)
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/common.yaml
-    when: INSTALL_ROOK_CEPH
-
+      src: ./files/common-resources.yaml
+    when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
   - name: Rook-Ceph Operator
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/operator-openshift.yaml
-    when: INSTALL_ROOK_CEPH
-
+      src: ./files/operator-openshift.yaml
+    when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
   - name: Rook-Ceph Cluster
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/cluster.yaml
-    when: INSTALL_ROOK_CEPH
-
+      src: ./files/cluster.yaml
+    when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
   - name: Rook-Ceph Filesystem
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/filesystem.yaml
-    when: INSTALL_ROOK_CEPH
-
+      src: ./files/filesystem.yaml
+    when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
   - name: Rook-Ceph Storageclass File
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/storageclass-fs.yaml
-    when: INSTALL_ROOK_CEPH
-
+      src: ./files/storageclass-fs.yaml
+    when: "'rook-cephfs' in STORAGECLASS_FILE" 
   - name: Rook-Ceph Storageclass Block
     kubernetes.core.k8s:
       state: present
       namespace: rook-ceph
-      src: ./templates/storageclass-block.yaml
-    when: INSTALL_ROOK_CEPH
-    
+      src: ./files/storageclass-block.yaml
+    when: "'rook-cephfs' in STORAGECLASS_BLOCK" 
   - name: Rook-Ceph  make Storageclass File default
     shell: |
       oc patch storageclass rook-cephfs -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'  
     ignore_errors: yes
     register: demo_robot_shop
-    when: INSTALL_ROOK_CEPH
+    when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
   when: K8S_EXISTS.resources|length == 0
 
-- name: CHECK -          🕦 Wait for more than >{{ROOK_NS_MIN_PODS}} pods in namespace rook-ceph
+- name: Wait for more than >{{ROOK_NS_MIN_PODS}} pods in namespace rook-ceph
   shell: |
     NUM_PODS=$(oc get po -n rook-ceph | wc -l)
     echo $NUM_PODS
@@ -72,7 +64,7 @@
   until: kubectl_num_pods.stdout|int > ROOK_NS_MIN_PODS
   retries: 500
   delay: 15
-  when: INSTALL_ROOK_CEPH
+  when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
 
 - name: Wait for rook-ceph namespace to become ready
   shell: oc get po -n rook-ceph | grep -v Running |grep -v Completed | grep -c ""
@@ -80,15 +72,18 @@
   until: kubectl_get_pods.stdout == "1"
   retries: 500
   delay: 15
-  when: INSTALL_ROOK_CEPH
+  when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
 
 - name: Rook-Ceph patch some stuff
-  shell: |
-    oc create route passthrough dash -n rook-ceph --service=rook-ceph-mgr-dashboard --port=8443
-    #HACK
-    oc -n rook-ceph create secret generic --type kubernetes.io/rook rook-ceph-crash-collector-keyring
+  shell: oc create route passthrough dash -n rook-ceph --service=rook-ceph-mgr-dashboard --port=8443
   ignore_errors: yes
-  when: INSTALL_ROOK_CEPH
+  failed_when: variable.rc == 2
+  when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
+
+- name: Rook-Ceph create kubernetes.io/rook secret
+  shell: oc -n rook-ceph create secret generic --type kubernetes.io/rook rook-ceph-crash-collector-keyring
+  ignore_errors: yes
+  when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
   
      
 

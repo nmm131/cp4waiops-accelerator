@@ -1,5 +1,7 @@
 # CP4WAIOPS Accelerator
 
+NOTE: Logic to automatically check the name of the cluster for 'fyre.ibm.com' or 'appdomain.cloud' and determine the StorageClass has been removed. Instead, set the STORAGE_CLASS_BLOCK AND STORAGE_CLASS_FILE variables' values.
+
 ## When testing scripts locally
 Run NIKH script's from the `./aiops-install-ansible` folder
 ## When testing scripts remotely

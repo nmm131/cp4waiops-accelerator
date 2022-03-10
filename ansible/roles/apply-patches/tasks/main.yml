@@ -12,6 +12,7 @@
 
 - name: Create Topology Routes
   block:
+  # Notes: already done in create-merge-rules role
   # todo: topology-route.j2
   # topology-merge-{{ WAIOPS_NAMESPACE }}.{{ HOST }}
   # https://topology-merge-cp4waiops.itzroks-662001vtd7-amsxm5-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
@@ -32,7 +33,7 @@
   when: K8S_EXISTS.resources|length == 0
 
 - name: Check Flink Route
-  k8s_info:
+  kubernetes.core.k8s_info:
     api_version: route.openshift.io/v1
     kind: Route
     name: job-manager

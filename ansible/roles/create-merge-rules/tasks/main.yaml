@@ -1,0 +1,607 @@
+# Beginning of create-merge-rules.sh
+
+# - name: Get Initial Admin password
+#   shell: ./robot-shop-merge-rules.sh
+#   register: ADMIN_PASSWORD
+
+- name: Set cluster route
+  shell: oc get routes console -n openshift-console | tail -n 1 2>&1
+  register: CLUSTER_ROUTE
+
+- name: Set cluster FQDN
+  shell: echo $CLUSTER_ROUTE | awk '{print $2}'
+  register: CLUSTER_FQDN
+
+- name: Set cluster name
+  shell: CLUSTER_FQDN##*console.
+  register: CLUSTER_NAME
+
+- name: Set username
+  shell: oc get secret aiops-topology-asm-credentials -n "{{ WAIOPS_NAMESPACE }}" -o=template --template={{.data.username}} | base64 --decode
+  register: EVTMGR_REST_USR
+
+- name: Set password
+  shell: oc get secret aiops-topology-asm-credentials -n "{{ WAIOPS_NAMESPACE }}" -o=template --template={{.data.password}} | base64 --decode
+  register: EVTMGR_REST_PWD
+
+- name: Create topology-merge route
+  kubernetes.core.k8s:
+    src: ./files/topology-merge.yaml
+    state: present
+
+- name: Merge Create
+  uri:
+    url: https://topology-merge-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/merge/rules?ruleType=matchTokensRule
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','merge-create.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+
+- name: Merge Create
+  uri:
+    url: https://topology-merge-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/merge/rules?ruleType=mergeRule&_include_count=false&_field=*
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    headers:
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+
+# Beginning of create-merge-topology-robotshop.sh
+- name: Delete topology-rest route
+  shell: oc delete route topology-rest -n "{{ WAIOPS_NAMESPACE  }}"
+
+- name: Create topology-merge route
+  kubernetes.core.k8s:
+    src: ./files/topology-merge.yaml
+    state: present
+
+# Not needed if exposing routes earlier than this step
+- name: Wait 5 seconds
+  wait_for:
+    timeout: 5
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-01.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob 
+    
+    
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-1.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob 
+      
+      
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-2.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-3.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-4.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-5.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-6.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-7.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-8.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-9.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-10.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-11.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-12.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-13.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-14.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-15.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-16.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Edge
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/resources
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','edge-17.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-01.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-02.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-03.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-04.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-05.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-06.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-07.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-08.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-09.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-10.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-11.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-12.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-13.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-14.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-15.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-16.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-17.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-18.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-19.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-20.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-21.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-22.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob
+
+- name: Create Link
+  uri:
+    url: https://topology-rest-"{{ WAIOPS_NAMESPACE }}"."{{ CLUSTER_NAME }}"/1.0/rest-observer/rest/references
+    user: EVTMGR_REST_USR
+    password: EVTMGR_REST_PWD
+    method: POST
+    body: "{{ lookup('file','link-23.json') }}"
+    body_format: json
+    headers:
+      Content-Type: "application/json; charset=utf-8"
+      X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255
+      JobId: listenJob

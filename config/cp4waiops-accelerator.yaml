@@ -50,40 +50,55 @@ roleRef:
 #   kind: Role
 #   name: cp4waiops-accelerator
 #   apiGroup: rbac.authorization.k8s.io
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: cp4waiops-accelerator
+#   namespace: cp4waiops-accelerator
+# spec:
+#   selector:
+#     matchLabels:
+#       app: cp4waiops-accelerator
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: cp4waiops-accelerator
+#     spec:
+#       containers:
+#       - name: cp4waiops-accelerator
+#         image: quay.io/nate_malone_ibm/cp4waiops-accelerator:latest
+#         imagePullPolicy: Always
+#         ports:
+#         - containerPort: 8080
+#       serviceAccount: cp4waiops-accelerator
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: cp4waiops-accelerator
+#   namespace: cp4waiops-accelerator
+# spec:
+#   selector:
+#     app: cp4waiops-accelerator
+#   ports:
+#   - protocol: "TCP"
+#     port: 8080
+#     targetPort: 8080
+#   type: LoadBalancer
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: cp4waiops-accelerator
   namespace: cp4waiops-accelerator
 spec:
-  selector:
-    matchLabels:
-      app: cp4waiops-accelerator
-  replicas: 1
   template:
-    metadata:
-      labels:
-        app: cp4waiops-accelerator
     spec:
       containers:
       - name: cp4waiops-accelerator
         image: quay.io/nate_malone_ibm/cp4waiops-accelerator:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-      serviceAccount: cp4waiops-accelerator
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: cp4waiops-accelerator
-  namespace: cp4waiops-accelerator
-spec:
-  selector:
-    app: cp4waiops-accelerator
-  ports:
-  - protocol: "TCP"
-    port: 8080
-    targetPort: 8080
-  type: LoadBalancer
+        command: ["ansible-playbook",  "install-ai-manager.yaml"]
+      restartPolicy: Never
+  backoffLimit: 4

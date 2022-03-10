@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: topology-merge
+  name: "{{ WAIOPS_NAMESPACE }}"
+spec:
+  host: www.example.com
+  port:
+    targetPort: https-merge-api
+  tls:
+    termination: passthrough 
+    insecureEdgeTerminationPolicy: Redirect 
+  to:
+    kind: Service
+    name: aiops-topology-merge

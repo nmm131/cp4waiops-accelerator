@@ -12,19 +12,19 @@
       state: present
 
   - name: Create a robot-shop Service Account ClusterRoleBinding
-  kubernetes.core.k8s:
-    src: ./files/robot1-cluster-role-binding.yaml
-    state: present
+    kubernetes.core.k8s:
+      src: ./files/robot1-cluster-role-binding.yaml
+      state: present
 
   - name: Create another robot-shop Service Account ClusterRoleBinding
-  kubernetes.core.k8s:
-    src: ./files/robot2-cluster-role-binding.yaml
-    state: present
+    kubernetes.core.k8s:
+      src: ./files/robot2-cluster-role-binding.yaml
+      state: present
 
   - name: Create robot-shop service account
-  shell: |
-    oc adm policy add-scc-to-user privileged -n robot-shop -z robot-shop
-    oc adm policy add-scc-to-user privileged -n robot-shop -z default                                
+    shell: |
+      oc adm policy add-scc-to-user privileged -n robot-shop -z robot-shop
+      oc adm policy add-scc-to-user privileged -n robot-shop -z default                                
   # ignore_errors: yes   
 
   - name: Create robot-shop application

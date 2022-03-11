@@ -8,23 +8,23 @@
 
 - name: Create OCP Demouser Account
   block:
-    - name: Create a project
-      kubernetes.core.k8s:
+  - name: Create a project
+    kubernetes.core.k8s:
       template: ./templates/namespace.j2
       state: present
 
-    - name: Create a Service Account
-      kubernetes.core.k8s:
+  - name: Create a Service Account
+    kubernetes.core.k8s:
       src: ./files/service-account.yaml
       state: present
 
-    - name: Create a demo-admin ServiceAccount ClusterRoleBinding
-      kubernetes.core.k8s:
+  - name: Create a demo-admin ServiceAccount ClusterRoleBinding
+    kubernetes.core.k8s:
       src: ./files/demo-cluster-role-binding.yaml
       state: present
 
-    - name: Create an ibm-zen-operator ServiceAccount ClusterRoleBinding
-      kubernetes.core.k8s:
+  - name: Create an ibm-zen-operator ServiceAccount ClusterRoleBinding
+    kubernetes.core.k8s:
       src: ./files/ibm-cluster-role-binding.yaml
       state: present
   when: K8S_EXISTS.resources|length == 0

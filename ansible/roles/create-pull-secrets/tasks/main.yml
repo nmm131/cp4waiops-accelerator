@@ -11,13 +11,13 @@
 #   shell: oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
 #   ignore_errors: yes
 
-# # Create IBM Entitlements Pull Secret
-# - name: PREREQUISITES -      🔎 Check Pull Secret
-#   k8s_info:
-#     kind: Secret
-#     name: ibm-entitlement-key
-#     namespace: "{{ WAIOPS_NAMESPACE }}"
-#   register: K8S_EXISTS
+# Create IBM Entitlements Pull Secret
+- name: PREREQUISITES -      🔎 Check Pull Secret
+  k8s_info:
+    kind: Secret
+    name: ibm-entitlement-key
+    namespace: "{{ WAIOPS_NAMESPACE }}"
+  register: K8S_EXISTS
 # - name: DEBUG -              🟢 Output
 #   debug: 
 #     var: K8S_EXISTS.resources
@@ -64,18 +64,18 @@
   # when: K8S_EXISTS.resources|length == 0
 
 
-- name: Delete AIOPS Topology Cassandra Auth Secret Generator Pods
-  kubernetes.core.k8s:
-    api_version: v1
-    kind: Pod
-    namespace: "{{ WAIOPS_NAMESPACE }}"
-    selector: job-name=aiops-topology-cassandra-auth-secret-generator
-    state: absent
-    when: K8S_EXISTS.resources|length == 0
 # - name: Delete AIOPS Topology Cassandra Auth Secret Generator Pods
-#   shell: oc delete pods $(oc get pods -n {{ WAIOPS_NAMESPACE }} --selector=job-name=aiops-topology-cassandra-auth-secret-generator --no-headers -o custom-columns=":metadata.name") -n {{ WAIOPS_NAMESPACE }}
-#   ignore_errors: yes
-#   when: K8S_EXISTS.resources|length == 0
+#   kubernetes.core.k8s:
+#     api_version: v1
+#     kind: Pod
+#     namespace: "{{ WAIOPS_NAMESPACE }}"
+#     selector: job-name=aiops-topology-cassandra-auth-secret-generator
+#     state: absent
+#     when: K8S_EXISTS.resources|length == 0
+- name: Delete AIOPS Topology Cassandra Auth Secret Generator Pods
+  shell: oc delete pods $(oc get pods -n {{ WAIOPS_NAMESPACE }} --selector=job-name=aiops-topology-cassandra-auth-secret-generator --no-headers -o custom-columns=":metadata.name") -n {{ WAIOPS_NAMESPACE }}
+  ignore_errors: yes
+  when: K8S_EXISTS.resources|length == 0
 
 #####################################################
 #####################################################

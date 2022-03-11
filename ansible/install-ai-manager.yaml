@@ -79,6 +79,16 @@
     - role: print-logins
       when: PRINT_LOGINS
 
+    - role: create-kubernetes-observer
+    
+    - role: create-rest-observer
+
+    - role: create-aiops-application
+
+    - role: create-merge-rules
+
+    # - role: train-models
+
 
 
 

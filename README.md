@@ -16,20 +16,20 @@ Leveraging the benefits of CP4WAIOPS and minimizing the implementation period ha
   - [Slack integration](#slack-integration)
     - [Initial Slack Setup](#initial-slack-setup)
 ## Business Goals
-Research new solutions to assess, diagnose and resolve incidents
-Collaborate with experts to identify, evaluate and recommend technical solutions to support project requirements
-Integrate industry trends, emerging technologies and standards
-Drive IT projects
-Solve complex problems
-Test innovative approaches
+- Research new solutions to assess, diagnose and resolve incidents
+- Collaborate with experts to identify, evaluate and recommend technical solutions to support project requirements
+- Integrate industry trends, emerging technologies and standards
+- Drive IT projects
+- Solve complex problems
+- Test innovative approaches
 
 ## Architecture
-Terraform - infrastructure as code
-Ansible - configuration management
-IBM Cloud - cloud computing services
-NGINX - web server
-Datadog - cloud monitoring service
-Kafka - data streaming platform
+- Terraform - infrastructure as code
+- Ansible - configuration management
+- IBM Cloud - cloud computing services
+- NGINX - web server
+- Datadog - cloud monitoring service
+- Integrate industry trends, emerging technologies and standardsKafka - data streaming platform
 
 ## Install
 TOO:

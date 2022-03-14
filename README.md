@@ -77,3 +77,6 @@ Here are the steps to follow:
 1. [Get the Integration URL - Private Cloud - Fyre/TEC](./tools/3_slack/5_slack_url_private.md)
 1. [Create Slack App Communications](./tools/3_slack/6_slack_app_integration.md)
 1. [Prepare Slack Reset](./tools/3_slack/7_slack_reset.md)
+
+# Notes:
+[Remove ansible.cfg from current directory](https://docs.ansible.com/ansible/latest/reference_appendices/config.html)

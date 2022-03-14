@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # Import variables
-. ./config/config.sh
+# . ./config/config.sh
 
 # TODO: Check if sh is installed
 

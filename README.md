@@ -30,7 +30,7 @@ Leveraging the benefits of CP4WAIOPS and minimizing the implementation period ha
 - IBM Cloud - cloud computing services
 - NGINX - web server
 - Datadog - cloud monitoring service
-- Integrate industry trends, emerging technologies and standardsKafka - data streaming platform
+- Kafka - data streaming platform
 
 ## Install
 ```

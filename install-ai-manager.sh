@@ -4,7 +4,7 @@
 curl -sfL https://raw.github.ibm.com/CP4WAIOPS-Accelerator/cp4waiops-accelerator/main/config/check-dependencies.sh | sh -
 
 # Import variables
-curl -sfL https://raw.github.ibm.com/CP4WAIOPS-Accelerator/cp4waiops-accelerator/main/config/config.sh | sh -
+curl -s https://raw.github.ibm.com/CP4WAIOPS-Accelerator/cp4waiops-accelerator/main/config/config.sh | sh -
 
 # Initialize variables for reading
 # Make sure secret variables are cleared and not exported

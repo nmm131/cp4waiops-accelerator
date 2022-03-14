@@ -12,6 +12,7 @@
   - [Work in Progress:](#work-in-progress)
     - [Slack integration](#slack-integration)
       - [Initial Slack Setup](#initial-slack-setup)
+- [Notes:](#notes)
 
 ## Mission Statement
 Leveraging the benefits of CP4WAIOPS and minimizing the implementation period has enabled us to do a deep dive into several use cases. This project is a starting point for anyone coming from any level of CP4WAIOPS. Get started by requesting the TechZone Collection environment or by running a single command using your local workstation. This project will install CP4WAIOPS, preloaded with applications for simulating real time incidences. This project can assist the visibility into your organization's infrastructure so that you can confidently assess, diagnose, and resolve incidents across mission-critical workloads. With these issues being at the forefront of engagements for Client Engineering, we believe this is a reusable asset for our department.
@@ -77,3 +78,6 @@ Here are the steps to follow:
 1. [Get the Integration URL - Private Cloud - Fyre/TEC](./tools/3_slack/5_slack_url_private.md)
 1. [Create Slack App Communications](./tools/3_slack/6_slack_app_integration.md)
 1. [Prepare Slack Reset](./tools/3_slack/7_slack_reset.md)
+
+# Notes:
+[Remove ansible.cfg from current directory](https://docs.ansible.com/ansible/latest/reference_appendices/config.html)

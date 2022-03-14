@@ -3,18 +3,6 @@
 # Exit script if any variable/command/pipe fails
 set -euo pipefail
 
-# Import variables
-# . ./config/config.sh
-
-# TODO: Check if sh is installed
-
-# Check if sed is installed
-if [ ! -x "$(command -v "$SED")" ]
-then
-	printf "This script uses %s. To run the script, you must install %s:\nbrew install gnu-sed\n" "$SED" "$SED"
-	exit 1
-fi
-
 # Check if the correct version of jq is installed
 if [ "$(printf "%s\n" "$(jq --version | grep -o '[0-9]\+[.]*[0-9]*')>1.4" | bc)" -eq "0" ]
 then

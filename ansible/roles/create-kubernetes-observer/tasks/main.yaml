@@ -7,7 +7,7 @@
     msg: "PWD: {{ PWD.stdout }}"
 
 - name: Get password
-  shell: oc get secret aiops-topology-asm-credentials -n cp4waiops -o yaml | grep password | cut -d ':' -f2 | base64 -di
+  shell: oc get secret aiops-topology-asm-credentials -n cp4waiops -o yaml | grep password | cut -d ':' -f2 | base64 -di | tr -cd '[:print:]'
   register: PASSWORD_OUTPUT
   
 - name: Set password
@@ -15,7 +15,7 @@
     PASSWORD: "{{ PASSWORD_OUTPUT.stdout }}"
 
 - name: Get username
-  shell: oc get secret aiops-topology-asm-credentials -n cp4waiops -o yaml | grep username | cut -d ':' -f2 | base64 -di
+  shell: oc get secret aiops-topology-asm-credentials -n cp4waiops -o yaml | grep username | cut -d ':' -f2 | base64 -di | tr -cd '[:print:]'
   register: USERNAME_OUTPUT
 
 - name: Set username

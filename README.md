@@ -54,15 +54,10 @@ seismic documentation on how to run/do the demo
 ### Log into IBM Automation
 1. Log into IBM Automation:
     1. Go to the provided URL that you can find in the `./provided-credentials` file from a web browser
-    2. If you see a "Your connection is not private" message for the `cpd-<NAMESPACE>` url, click **Advanced**
-    ![Screenshot](documentation/ibm-automation-1.png)
-    2. Then click **Proceed to URL (unsafe)** at the bottom.
-    ![Screenshot](documentation/ibm-automation-2.png)
-    3. Repeat steps #1 and #2 for the "Your connection is not private" message for the the `cp-console` url
-    4. On the **Login to IBM Automation** screen, click **IBM provided credentials (admin only)** and input your credentials that you can find in the `./provided-credentials` file
+    2. On the **Login to IBM Automation** screen, click **IBM provided credentials (admin only)** and input your credentials that you can find in the `./provided-credentials` file
     ![Screenshot](documentation/ibm-automation-3.png)
     ![Screenshot](documentation/ibm-automation-4.png)
-    5. It is strongly recommended that you change the initial password the first time that you log in to the web client.
+    1. It is strongly recommended that you change the initial password the first time that you log in to the web client.
 
 ## Slack integration
 ### Initial Slack Setup 

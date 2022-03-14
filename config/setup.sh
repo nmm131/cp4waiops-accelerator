@@ -6,9 +6,8 @@ set -euo pipefail
 # Check dependencies
 . ./config/check-dependencies.sh
 
-# Import variables and functions
+# Import variables
 . ./config/config.sh
-. ./config/functions.sh
 
 # Initialize variables for reading and make sure secret variables are cleared not exported
 IFS=
@@ -37,7 +36,6 @@ printf "\n"
 
 # Create namespace
 oc get namespace | grep "$NAMESPACE" | grep -q "Active" || oc create namespace "$NAMESPACE" || :
-wait_for_namespace
 
 # Add credentials to global image pull secret
 oc extract secret/pull-secret -n openshift-config --keys=.dockerconfigjson --to=. --confirm

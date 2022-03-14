@@ -1,4 +1,44 @@
-# CP4WAIOPS Accelerator
+# Cloud Pak for Watson AI Accelerator
+ 
+
+
+Business Goals
+Drive IT projects
+Solve complex problems
+Test innovative approaches
+Research new solutions to storing, manipulating and presenting information
+Integrate industry trends, emerging technologies and standards
+Collaborate with experts to identify, evaluate and recommend technical solutions to support project requirements
+
+Architecture
+Terraform - infrastructure as code
+Ansible - configuration management
+IBM Cloud - cloud computing services
+NGINX - web server
+Datadog - cloud monitoring service
+Kafka
+Humio
+LogDNA
+
+
+
+Install
+curl https://website/path-to-file.sh -> 0apply 
+request an enviornment
+
+Demo
+run script
+seismic documentation on how to run/do the demo
+
+Challenges
+
+
+Q & A
+
+
+Work in Progress:
+
+
 
 NOTE: Logic to automatically check the name of the cluster for 'fyre.ibm.com' or 'appdomain.cloud' and determine the StorageClass has been removed. Instead, set the STORAGE_CLASS_BLOCK AND STORAGE_CLASS_FILE variables' values.
 
@@ -27,7 +67,7 @@ TODO:
 ```./build-container.sh```
 
 ## Table of Contents
-- [CP4WAIOPS Accelerator](#cp4waiops-accelerator)
+- [Cloud Pak for Watson AI Accelerator](#cloud-pak-for-watson-ai-accelerator)
   - [When testing scripts locally](#when-testing-scripts-locally)
   - [When testing scripts remotely](#when-testing-scripts-remotely)
 - [Notes](#notes)

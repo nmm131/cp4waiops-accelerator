@@ -100,6 +100,7 @@ spec:
       - name: cp4waiops-accelerator
         image: quay.io/nate_malone_ibm/cp4waiops-accelerator:latest
         command: ["ansible-playbook",  "install-ai-manager.yaml"]
+        args: ["-vvvvv"]
       serviceAccount: cp4waiops-accelerator
       restartPolicy: Never
   backoffLimit: 2

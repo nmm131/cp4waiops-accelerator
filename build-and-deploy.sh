@@ -1,5 +1,6 @@
 #!/bin/sh
 
+oc delete job cp4waiops-accelerator -n cp4waiops-accelerator
 TAG='latest'
 LABEL='cp4waiops-accelerator-original'
 IMAGE_NAME='cp4waiops-accelerator'
@@ -23,4 +24,6 @@ docker push quay.io/"$QUAY_USER"/"$IMAGE_NAME":$TAG
 
 # Deploy the container
 #oc apply -f ./config/cp4waiops-accelerator.yaml
-./config/setup.sh
+
+# ./config/setup.sh
+oc apply -f config/cp4waiops-accelerator.yaml

@@ -33,10 +33,10 @@ Leveraging the benefits of CP4WAIOPS and minimizing the implementation period ha
 - Integrate industry trends, emerging technologies and standardsKafka - data streaming platform
 
 ## Install
-TOO:
 ```
-curl https://website/path-to-file.sh
+curl -sfL https://raw.github.ibm.com/CP4WAIOPS-Accelerator/cp4waiops-accelerator/main/install-ai-manager.sh?token=<YOUR_TOKEN_HERE> | sh -
 ``` 
+
 Request a TechZone Collection enviornment
 
 ## Demo

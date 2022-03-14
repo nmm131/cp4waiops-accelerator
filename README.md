@@ -9,12 +9,12 @@ Leveraging the benefits of CP4WAIOPS and minimizing the implementation period ha
   - [Architecture](#architecture)
   - [Install](#install)
   - [Demo](#demo)
+    - [Log into IBM Automation](#log-into-ibm-automation)
   - [Challenges](#challenges)
   - [Q & A](#q--a)
   - [Work in Progress:](#work-in-progress)
-    - [Log into IBM Automation](#log-into-ibm-automation)
-  - [Slack integration](#slack-integration)
-    - [Initial Slack Setup](#initial-slack-setup)
+    - [Slack integration](#slack-integration)
+      - [Initial Slack Setup](#initial-slack-setup)
 ## Business Goals
 - Research new solutions to assess, diagnose and resolve incidents
 - Collaborate with experts to identify, evaluate and recommend technical solutions to support project requirements
@@ -39,6 +39,14 @@ curl https://website/path-to-file.sh
 Request a TechZone Collection enviornment
 
 ## Demo
+### Log into IBM Automation
+1. Log into IBM Automation:
+    1. Go to the provided URL that you can find in the `./provided-credentials` file from a web browser
+    2. On the **Login to IBM Automation** screen, click **IBM provided credentials (admin only)** and input your credentials that you can find in the `./provided-credentials` file
+    ![Screenshot](documentation/ibm-automation-3.png)
+    ![Screenshot](documentation/ibm-automation-4.png)
+    1. It is strongly recommended that you change the initial password the first time that you log in to the web client.
+
 TODO:
 run script
 seismic documentation on how to run/do the demo
@@ -51,16 +59,8 @@ seismic documentation on how to run/do the demo
 
 ## Work in Progress:
 
-### Log into IBM Automation
-1. Log into IBM Automation:
-    1. Go to the provided URL that you can find in the `./provided-credentials` file from a web browser
-    2. On the **Login to IBM Automation** screen, click **IBM provided credentials (admin only)** and input your credentials that you can find in the `./provided-credentials` file
-    ![Screenshot](documentation/ibm-automation-3.png)
-    ![Screenshot](documentation/ibm-automation-4.png)
-    1. It is strongly recommended that you change the initial password the first time that you log in to the web client.
-
-## Slack integration
-### Initial Slack Setup 
+### Slack integration
+#### Initial Slack Setup 
 
 For the system to work you need to setup your own secure gateway and slack workspace. It is suggested that you do this within the public slack so that you can invite the customer to the experience as well. It also makes it easier for is to release this image to Business partners
 

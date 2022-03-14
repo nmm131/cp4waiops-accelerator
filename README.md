@@ -3,10 +3,26 @@
 ## Mission Statement
 Leveraging the benefits of CP4WAIOPS and minimizing the implementation period has enabled us to do a deep dive into several use cases. This project is a starting point for anyone coming from any level of CP4WAIOPS. Get started by requesting the TechZone Collection environment or by running a single command using your local workstation. This project will install CP4WAIOPS, preloaded with applications for simulating real time incidences. This project can assist the visibility into your organization's infrastructure so that you can confidently assess, diagnose, and resolve incidents across mission-critical workloads. With these issues being at the forefront of engagements for Client Engineering, we believe this is a reusable asset for our department.
 
+### Business Goals
+- Research new solutions to assess, diagnose and resolve incidents
+- Collaborate with experts to identify, evaluate and recommend technical solutions to support project requirements
+- Integrate industry trends, emerging technologies and standards
+- Drive IT projects
+- Solve complex problems
+- Test innovative approaches
+
+### Architecture
+- Terraform - infrastructure as code
+- Ansible - configuration management
+- IBM Cloud - cloud computing services
+- NGINX - web server
+- Datadog - cloud monitoring service
+- Integrate industry trends, emerging technologies and standardsKafka - data streaming platform
+
 - [Cloud Pak for Watson AIOps (CP4WAIOPS) Accelerator](#cloud-pak-for-watson-aiops-cp4waiops-accelerator)
   - [Mission Statement](#mission-statement)
-  - [Business Goals](#business-goals)
-  - [Architecture](#architecture)
+    - [Business Goals](#business-goals)
+    - [Architecture](#architecture)
   - [Install](#install)
   - [Demo](#demo)
     - [Log into IBM Automation](#log-into-ibm-automation)
@@ -15,21 +31,6 @@ Leveraging the benefits of CP4WAIOPS and minimizing the implementation period ha
   - [Work in Progress:](#work-in-progress)
     - [Slack integration](#slack-integration)
       - [Initial Slack Setup](#initial-slack-setup)
-## Business Goals
-- Research new solutions to assess, diagnose and resolve incidents
-- Collaborate with experts to identify, evaluate and recommend technical solutions to support project requirements
-- Integrate industry trends, emerging technologies and standards
-- Drive IT projects
-- Solve complex problems
-- Test innovative approaches
-
-## Architecture
-- Terraform - infrastructure as code
-- Ansible - configuration management
-- IBM Cloud - cloud computing services
-- NGINX - web server
-- Datadog - cloud monitoring service
-- Integrate industry trends, emerging technologies and standardsKafka - data streaming platform
 
 ## Install
 TOO:

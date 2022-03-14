@@ -1,0 +1,13 @@
+{
+  "name": "instana-app-201",
+  "entityTypes": [
+    "waiopsApplication"
+  ],
+  "_references": [
+    {
+      "_toUniqueId": "instana-group-201",
+      "_edgeType": "groups",
+      "edgeProvider": "waiopsUserDefinedMember"
+    }
+  ]
+}

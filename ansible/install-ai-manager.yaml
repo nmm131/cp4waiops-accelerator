@@ -1,0 +1,99 @@
+- hosts: local
+  vars_files: ./group_vars/ai-manager.yaml
+  roles:  
+    - role: login-openshift
+      when: INSTALL_AIOPS
+
+    - role: install-rook-ceph
+      when: STORAGECLASS_FILE=="rook-cephfs" or STORAGECLASS_BLOCK=="rook-cephfs"
+
+    - role: create-pull-secrets
+      when: INSTALL_AIOPS
+
+    - role: install-cp4waiops-operator
+      when: INSTALL_AIOPS
+      
+    - role: install-cp4waiops-custom-resource
+      when: INSTALL_AIOPS
+
+################################################
+# Install Add-Ons while CP4WAIOPS is coming up
+    # - role: 20_aiops-addons-turbonomic
+    #   when: INSTALL_TURBONOMIC
+
+    # - role: 20_2_aiops-addons-turbonomic-metrics
+    #   when: INSTALL_TURBONOMIC_METRICS
+
+    # - role: 20_3_aiops-addons-turbonomic-gateway
+    #   when: INSTALL_TURBONOMIC_GATEWAY
+
+    # - role: 22_aiops-addons-elk
+    #   when: INSTALL_ELK
+
+    # - role: 23_aiops-addons-awx
+    #   when: INSTALL_AWX
+
+    # - role: 24_aiops-addons-manageiq
+    #   when: INSTALL_MANAGEIQ
+################################################
+
+# Install Add-Ons while CP4WAIOPS is coming up
+    - role: install-ldap
+      when: INSTALL_LDAP and INSTALL_AIOPS
+
+    - role: create-ocp-user
+      when: CREATE_DEMO_USER and INSTALL_AIOPS
+
+    - role: install-demo-apps
+      when: INSTALL_DEMO_APPS and INSTALL_AIOPS
+
+    - role: install-runbook-bastion-server
+      when: INSTALL_RUNBOOK_BASTION
+      
+# Wait for Common Services being completely installed
+    - role: wait-for-common-services
+      when: INSTALL_AIOPS
+
+    - role: wait-for-zen
+      when: INSTALL_AIOPS
+
+    - role: apply-patches
+      when: INSTALL_AIOPS and INSTALL_AIOPS
+
+# Wait for CP4WAIOPS being completely installed
+    - role: wait-for-cp4waiops
+      when: INSTALL_AIOPS
+
+    - role: apply-final-patches
+      when: INSTALL_AIOPS
+
+# Post installation tasks
+    - role: post-ldap-register
+      when: INSTALL_LDAP and INSTALL_AIOPS
+
+# Install Add-Ons after CP4WAIOPS has come up
+    - role: install-humio
+      when: INSTALL_HUMIO
+
+# Get all login credentials
+    - role: print-logins
+      when: PRINT_LOGINS
+
+    - role: create-kubernetes-observer
+    
+    - role: create-rest-observer
+
+    - role: create-aiops-application
+
+    - role: create-merge-rules
+
+    # - role: train-models
+
+
+
+
+
+
+
+
+

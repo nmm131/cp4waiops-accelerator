@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+# This cluster role binding allows the "demo-admin" service account 
+# to have cluster-admin privileges in any namespace.
+kind: ClusterRoleBinding
+metadata:
+  name: test-admin
+subjects:
+- kind: ServiceAccount
+  name: demo-admin
+  namespace: default
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io

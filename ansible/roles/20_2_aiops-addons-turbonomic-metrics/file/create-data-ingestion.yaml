@@ -1,0 +1,4 @@
+ansible/roles/20_2_aiops-addons-turbonomic-metrics/file/main.yml:
+  18      namespace: default
+  19:     src: ./templates/turbo-metrics/create-data-ingestion.yaml
+  20    

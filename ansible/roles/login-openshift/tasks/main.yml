@@ -1,0 +1,31 @@
+---
+- name: PREREQUISITES -      📥  Installation Parameters"
+  debug:
+    msg:
+    - "** CP4WAIOPS AI Manager Parameters ***********************************************************************"
+    - " AI Manager Installation Name:      {{WAIOPS_NAME}}"
+    - " AI Manager Namespace:              {{WAIOPS_NAMESPACE}}"
+    - " AI Manager Installation Size:      {{WAIOPS_SIZE}}"
+    - ""
+    - "** Installation Options ***********************************************************************"
+    - " Rook-Ceph installation method:    {{ROOK_CEPH_INSTALL_MODE}}"
+    - " Auto Login for OCP:               {{OCP_LOGIN}}"
+    - " OCP Major Version:                {{OCP_MAJOR_VERSION}}"
+    - " Storage Class File Override:      {{STORAGECLASS_FILE}}"
+    - " Storage Class Block Override:     {{STORAGECLASS_BLOCK}}"
+    - ""
+    - "** Additional Content *************************************************************************"
+    - " Create a demo user:               {{CREATE_DEMO_USER}}"
+    - " Install Demo Applications:        {{INSTALL_DEMO_APPS}}"
+    - " Install Bastion Server (RBA):     {{INSTALL_RUNBOOK_BASTION}}"
+    - " Install LDAP Server:              {{INSTALL_LDAP}}"
+    - "  LDAP Domain:                     {{LDAP_DOMAIN}}"
+    - "  LDAP Base:                       {{LDAP_BASE}}"
+    - "  LDAP Admin Password:             {{LDAP_ADMIN_PASSWORD}}"
+    - " Install Turbonomic:               {{INSTALL_TURBONOMIC}}"
+    - "     Turbonomic Storage Class:      {{STORAGE_CLASS_TURBO}}"
+    - " Install Humio:                    {{INSTALL_HUMIO}}"
+    - " Install OCP ELK Stack:            {{INSTALL_ELK}}"
+
+- name: Login to OpenShift cluster
+  shell: oc login --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --server=https://kubernetes.default --certificate-authority='/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'

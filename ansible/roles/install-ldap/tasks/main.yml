@@ -1,0 +1,4 @@
+- name: Install OpenLDAP
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/install-ldap.j2

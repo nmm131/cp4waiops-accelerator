@@ -1,0 +1,56 @@
+- name: Install IBM Operator Catalog Source
+  kubernetes.core.k8s:
+    state: present
+    src: ./files/ibm-operator-catalogsource.yaml
+
+
+# Create IBM AIOps Catalog
+# - name: AI Manager -           🚀 Install IBM AIOps Catalog
+#   kubernetes.core.k8s:
+#     state: present
+#     template: ./templates/waiops/2_cat-ibm-aiops.j2
+
+- name: Install Operator Group
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/cp4waiops-operatorgroup.j2
+
+- name: Install Subscription
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/cp4waiops-subscription.j2
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Wait for Marketplace being ready
+# --------------------------------------------------------------------------------------------------------------------------------------
+# - name: CHECK -              🕦 Wait for openshift-marketplace to become ready
+#   shell: oc get po -n openshift-marketplace | grep -v Running |grep -v Completed | grep -c ""
+#   register: kubectl_get_pods
+#   until: kubectl_get_pods.stdout == "1"
+#   retries: 500
+#   delay: 15
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Wait for Operators being ready
+# --------------------------------------------------------------------------------------------------------------------------------------
+# - name: CHECK -              🕦 Wait for operators to become ready in Namespace {{ WAIOPS_NAMESPACE }}
+#   shell: oc get po -n {{ WAIOPS_NAMESPACE }} | grep Running | grep -v "0/1" |grep -c ""
+#   register: kubectl_get_pods
+#   until: kubectl_get_pods.stdout|int > "6"
+#   retries: 500
+#   delay: 15
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Wait for CSV being ready
+# --------------------------------------------------------------------------------------------------------------------------------------
+- name: Wait for CSVs to become ready
+  shell: oc get csv -n {{ WAIOPS_NAMESPACE }}| grep -v "Succeeded" | grep -c ""
+  register: kubectl_get_pods
+  until: kubectl_get_pods.stdout == "1"
+  retries: 500
+  delay: 15
+
+
+
+

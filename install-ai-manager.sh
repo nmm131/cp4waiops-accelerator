@@ -43,7 +43,8 @@ fi
 # Make sure secret variables are cleared and not exported
 IFS=
 REPLY='continue'
-NAMESPACE=cp4waiops-accelerator
+REPLY2='continue'
+NAMESPACE=cp4waiops
 ENTITLEMENT=ibm-entitlement-key
 set +o allexport
 unset -v REGISTRY_SERVER_ADDRESS
@@ -84,12 +85,13 @@ elif [ "$REPLY" = "N" ] || [ "$REPLY" = "n" ] || [ -z "$REPLY" ]; then
     echo "Update Global Image Pull Secret skipped"
 fi
 
-REPLY='continue'
+oc get namespace | grep "$NAMESPACE" | grep -q "Active" || oc create namespace "$NAMESPACE" || :
+
 if oc get secret/"$ENTITLEMENT" -n "$NAMESPACE" >/dev/null 2>&1; then
     printf "IBM Entitlement Key Secret already exists, add your IBM Entitlement Key to the Global Image Pull Secret? N/y: "
-    read -r REPLY </dev/tty
+    read -r REPLY2 </dev/tty
 fi
-if [ "$REPLY" = "Y" ] || [ "$REPLY" = "y" ]; then
+if [ "$REPLY2" = "Y" ] || [ "$REPLY2" = "y" ]; then
     # Ask user for entitlement key and e-mail
     printf "\nInput your IBM Entitled Registry entitlement key: [input is hidden] "
     read -rs ENTITLEMENT_KEY </dev/tty

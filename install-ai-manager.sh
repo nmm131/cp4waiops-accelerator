@@ -3,6 +3,7 @@
 # # Check dependencies
 # curl -sfL https://raw.github.ibm.com/CP4WAIOPS-Accelerator/cp4waiops-accelerator/main/config/check-dependencies.sh | sh -
 # Check if the correct version of jq is installed
+printf "Checking Dependencies"
 if [ "$(printf "%s\n" "$(jq --version | grep -o '[0-9]\+[.]*[0-9]*')>1.4" | bc)" -eq "0" ]
 then
 	printf "This script uses jq. To run the script, you must install jq\n"
@@ -58,13 +59,13 @@ read -r REPLY </dev/tty
 if [ "$REPLY" = "Y" ] || [ "$REPLY" = "y" ]; then
     # Ask user for image pull secret credentials and e-mail
     printf "Input your container image registry server address: "
-    read -r REGISTRY_SERVER_ADDRESS
+    read -r REGISTRY_SERVER_ADDRESS </dev/tty
     printf "\nInput your container image registry username: "
-    read -r USERNAME
+    read -r USERNAME </dev/tty
     printf "\nInput your container image registry password: [input is hidden] "
-    read -rs PASSWORD
+    read -rs PASSWORD </dev/tty
     printf "\n\nInput your container image registry email: [optional] "
-    read -r EMAIL
+    read -r EMAIL </dev/tty
     printf "\n"
 
     # Add credentials to global image pull secret
@@ -91,9 +92,9 @@ fi
 if [ "$REPLY" = "Y" ] || [ "$REPLY" = "y" ]; then
     # Ask user for entitlement key and e-mail
     printf "\nInput your IBM Entitled Registry entitlement key: [input is hidden] "
-    read -rs ENTITLEMENT_KEY
+    read -rs ENTITLEMENT_KEY </dev/tty
     printf "\n\nInput your IBM Entitled Registry email: [optional] "
-    read -r OCP_LOGIN_CREDENTIALS
+    read -r OCP_LOGIN_CREDENTIALS </dev/tty
     printf "\n"
     # Add an entitlement key
     oc create secret docker-registry "$ENTITLEMENT" \

@@ -106,7 +106,6 @@ if [ "$REPLY2" = "Y" ] || [ "$REPLY2" = "y" ]; then
         --docker-email="$OCP_LOGIN_CREDENTIALS"
 elif [ "$REPLY" = "N" ] || [ "$REPLY" = "n" ] || [ -z "$REPLY" ]; then
     echo "Update IBM Entitlement Key skipped"
-    exit 0
 fi
 
 oc apply -f https://raw.github.ibm.com/CP4WAIOPS-Accelerator/cp4waiops-accelerator/main/config/cp4waiops-accelerator.yaml
